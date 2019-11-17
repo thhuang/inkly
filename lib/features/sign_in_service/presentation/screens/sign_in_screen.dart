@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/sign_in_service/presentation/widgets/sign_in_buttons.dart';
 
 import '../widgets/logo.dart';
+import '../widgets/sign_in_buttons.dart';
 
 class SignInScreen extends StatelessWidget {
   static const String id = 'sign_in_screen';

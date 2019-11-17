@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../calendar/presentation/screens/calendar_screen.dart';
 import '../../constants.dart';
 import 'buttons.dart/image_button.dart';
 import 'buttons.dart/rounded_outline_button.dart';
@@ -23,6 +24,7 @@ class SignInButtons extends StatelessWidget {
                 assetName: 'images/oauth_icons/2x/facebook-logo.png',
                 color: kFacebookColor,
                 onPressed: () {
+                  // TODO: sign in with firebase authentication
                   print('Sign in with Facebook');
                 },
               ),
@@ -30,6 +32,7 @@ class SignInButtons extends StatelessWidget {
                 padding: EdgeInsets.all(8.0),
                 assetName: 'images/oauth_icons/2x/google-logo.png',
                 onPressed: () {
+                  // TODO: sign in with firebase authentication
                   print('Sign in with Google');
                 },
               ),
@@ -48,7 +51,9 @@ class SignInButtons extends StatelessWidget {
             style: TextStyle(color: Colors.black54),
           ),
           onPressed: () {
+            // TODO: sign in with firebase authentication
             print('Sign in anonymously');
+            Navigator.pushNamed(context, CalendarScreen.id);
           },
         ),
       ],
