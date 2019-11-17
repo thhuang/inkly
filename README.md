@@ -1,4 +1,4 @@
-# stutor
+# inkly
 
 A new Flutter project.
 

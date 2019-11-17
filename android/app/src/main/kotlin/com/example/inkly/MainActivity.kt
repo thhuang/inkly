@@ -1,4 +1,4 @@
-package com.example.stutor
+package com.example.inkly
 
 import android.os.Bundle
 
