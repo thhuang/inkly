@@ -4,6 +4,8 @@ import 'package:inkly/features/calendar/presentation/widgets/task_list.dart';
 import '../widgets/calendar.dart';
 
 class CalendarScreen extends StatelessWidget {
+  static const String id = 'calendar_screen';
+  
   const CalendarScreen({Key key}) : super(key: key);
 
   @override
