@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/landing/presentation/widgets/sign_in_buttons.dart';
+import 'package:inkly/features/sign_in_service/presentation/widgets/sign_in_buttons.dart';
 
 import '../widgets/logo.dart';
 
-class LandingScreen extends StatelessWidget {
-  static const String id = 'landing_screen';
-  const LandingScreen({Key key}) : super(key: key);
+class SignInScreen extends StatelessWidget {
+  static const String id = 'sign_in_screen';
+  const SignInScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

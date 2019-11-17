@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/calendar/presentation/screens/calendar_screen.dart';
-import 'package:inkly/features/landing/presentation/screens/landing_screen.dart';
-import 'package:inkly/features/login_service/presentation/screens/login_screen.dart';
+
+import 'features/calendar/presentation/screens/calendar_screen.dart';
+import 'features/sign_in_service/presentation/screens/sign_in_screen.dart';
 
 class InklyApp extends StatelessWidget {
   @override
@@ -11,10 +11,9 @@ class InklyApp extends StatelessWidget {
       theme: Theme.of(context).copyWith(
         backgroundColor: Colors.white,
       ),
-      initialRoute: LandingScreen.id,
+      initialRoute: SignInScreen.id,
       routes: {
-        LandingScreen.id: (context) => LandingScreen(),
-        LoginScreen.id: (context) => LoginScreen(),
+        SignInScreen.id: (context) => SignInScreen(),
         CalendarScreen.id: (context) => CalendarScreen(),
       },
     );
