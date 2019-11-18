@@ -16,11 +16,11 @@ class Event extends Equatable {
     @required this.name,
     this.creator,
     this.participants,
-    this.createDateTime,
     this.startDateTime,
     this.endDateTime,
     this.tag,
-  });
+  })  : assert(name != null),
+        createDateTime = DateTime.now();
 
   @override
   List<Object> get props => null;

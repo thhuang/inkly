@@ -5,5 +5,5 @@ import '../entities/event.dart';
 
 abstract class EventRepository {
   Either<Failure, Stream<Event>> getEventStream();
-  Either<Failure, void> addNewEvent();
+  Future<Either<Failure, String>> addNewEvent(Event event);
 }
