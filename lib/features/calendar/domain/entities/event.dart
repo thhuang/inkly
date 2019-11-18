@@ -5,8 +5,8 @@ import '../../../../core/authentication/user.dart';
 
 class Event extends Equatable {
   final String name;
-  final User creator;
-  final List<User> participants;
+  final String creator;
+  final List<String> participants;
   final DateTime createDateTime;
   final DateTime startDateTime;
   final DateTime endDateTime;
