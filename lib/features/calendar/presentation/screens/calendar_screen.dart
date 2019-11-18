@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/calendar/presentation/widgets/task_list.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/calendar.dart';
+import '../widgets/event_list.dart';
 
 class CalendarScreen extends StatelessWidget {
   static const String id = 'calendar_screen';
-  
+
   const CalendarScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Calendar(),
-            Expanded(
-              child: TaskList(),
-            ),
-          ],
+        child: ChangeNotifierProvider<ValueNotifier<List<String>>>(
+          builder: (_) => ValueNotifier<List<String>>([]),
+          child: Column(
+            children: <Widget>[
+              Calendar(),
+              Divider(height: 3.0),
+              Expanded(
+                child: EventList(),
+              ),
+            ],
+          ),
         ),
       ),
     );
