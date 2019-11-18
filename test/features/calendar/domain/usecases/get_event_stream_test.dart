@@ -20,29 +20,36 @@ void main() {
     getEventStream = GetEventStream(repository: mockEventRepository);
   });
 
-  test('should pass the call to the repository when success', () async {
-    // arrange
-    final tEventStream = MockEventStream();
-    when(mockEventRepository.getEventStream()).thenReturn(Right(tEventStream));
+  test(
+    'should pass the call to the repository when success',
+    () async {
+      // arrange
+      final tEventStream = MockEventStream();
+      when(mockEventRepository.getEventStream())
+          .thenReturn(Right(tEventStream));
 
-    // act
-    final result = getEventStream(NoParams());
+      // act
+      final result = getEventStream(NoParams());
 
-    // assert
-    verify(mockEventRepository.getEventStream()).called(1);
-    expect(result, equals(Right(tEventStream)));
-  });
+      // assert
+      verify(mockEventRepository.getEventStream()).called(1);
+      expect(result, equals(Right(tEventStream)));
+    },
+  );
 
-  test('should pass the call to the repository when failure', () async {
-    // arrange
-    final tFailure = ServerFailure();
-    when(mockEventRepository.getEventStream()).thenReturn(Left(tFailure));
+  test(
+    'should pass the call to the repository when failure',
+    () async {
+      // arrange
+      final tFailure = ServerFailure();
+      when(mockEventRepository.getEventStream()).thenReturn(Left(tFailure));
 
-    // act
-    final result = getEventStream(NoParams());
+      // act
+      final result = getEventStream(NoParams());
 
-    // assert
-    verify(mockEventRepository.getEventStream()).called(1);
-    expect(result, equals(Left(tFailure)));
-  });
+      // assert
+      verify(mockEventRepository.getEventStream()).called(1);
+      expect(result, equals(Left(tFailure)));
+    },
+  );
 }

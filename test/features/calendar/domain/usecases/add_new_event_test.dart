@@ -17,33 +17,39 @@ void main() {
     addNewEvent = AddNewEvent(repository: mockEventRepository);
   });
 
-  final tEvent = Event(name: 'test');
+  final tEvent = Event(name: 'test', createDateTime: DateTime(2000));
 
-  test('should pass the call to the repository when success', () async {
-    // arrange
-    final tID = 'index';
-    when(mockEventRepository.addNewEvent(any))
-        .thenAnswer((_) async => Right(tID));
+  test(
+    'should pass the call to the repository when success',
+    () async {
+      // arrange
+      final tID = 'index';
+      when(mockEventRepository.addNewEvent(any))
+          .thenAnswer((_) async => Right(tID));
 
-    // act
-    final result = await addNewEvent(Params(event: tEvent));
+      // act
+      final result = await addNewEvent(Params(event: tEvent));
 
-    // assert
-    verify(mockEventRepository.addNewEvent(tEvent)).called(1);
-    expect(result, Right(tID));
-  });
+      // assert
+      verify(mockEventRepository.addNewEvent(tEvent)).called(1);
+      expect(result, Right(tID));
+    },
+  );
 
-  test('should pass the call to the repository when failure', () async {
-    // arrange
-    final tFailure = ServerFailure();
-    when(mockEventRepository.addNewEvent(any))
-        .thenAnswer((_) async => Left(tFailure));
+  test(
+    'should pass the call to the repository when failure',
+    () async {
+      // arrange
+      final tFailure = ServerFailure();
+      when(mockEventRepository.addNewEvent(any))
+          .thenAnswer((_) async => Left(tFailure));
 
-    // act
-    final result = await addNewEvent(Params(event: tEvent));
+      // act
+      final result = await addNewEvent(Params(event: tEvent));
 
-    // assert
-    verify(mockEventRepository.addNewEvent(tEvent)).called(1);
-    expect(result, Left(tFailure));
-  });
+      // assert
+      verify(mockEventRepository.addNewEvent(tEvent)).called(1);
+      expect(result, Left(tFailure));
+    },
+  );
 }
