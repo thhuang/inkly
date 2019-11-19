@@ -18,6 +18,10 @@ dependencies:
   dartz: ^0.8.8
   # Value equality
   equatable: ^0.6.1
+  # Local database
+  sqflite: ^1.1.7+2
+  # Path manipulation
+  path: ^1.6.4
 
 dev_dependencies:
   flutter_test:

@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:inkly/core/authentication/user.dart';
 import 'package:meta/meta.dart';
 import 'package:inkly/features/calendar/domain/entities/event.dart';
 
 class EventModel extends Event {
+  final int id;
+
   EventModel({
+    this.id,
     @required String name,
     @required DateTime createDateTime,
     String creator,
@@ -30,8 +35,9 @@ class EventModel extends Event {
         : DateTime.parse(eventMap['endDateTime']);
     final List<String> participants = eventMap['participants'] == null
         ? null
-        : eventMap['participants'].cast<String>();
+        : jsonDecode(eventMap['participants']).cast<String>();
     return EventModel(
+      id: eventMap['id'],
       name: eventMap['name'],
       createDateTime: DateTime.parse(eventMap['createDateTime']),
       creator: eventMap['creator'],
@@ -43,16 +49,20 @@ class EventModel extends Event {
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    final eventMap = <String, dynamic>{
       'name': name,
       'createDateTime':
           createDateTime == null ? null : createDateTime.toIso8601String(),
       'creator': creator,
-      'participants': participants,
+      'participants': participants == null ? null : jsonEncode(participants),
       'startDateTime':
           startDateTime == null ? null : startDateTime.toIso8601String(),
       'endDateTime': endDateTime == null ? null : endDateTime.toIso8601String(),
       'tag': tag,
     };
+    if (id != null) {
+      eventMap['id'] = id;
+    }
+    return eventMap;
   }
 }

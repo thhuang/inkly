@@ -8,10 +8,22 @@ import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   final tEventModelMin = EventModel(
+    id: 0,
     name: 'test',
     createDateTime: DateTime.parse('2019-11-18T12:00:00.000Z'),
   );
   final tEventModel = EventModel(
+    id: 0,
+    name: 'test',
+    createDateTime: DateTime.parse('2019-11-18T12:00:00.000Z'),
+    creator: 'user1',
+    participants: ['user1', 'user2', 'user3'],
+    startDateTime: DateTime.parse('2019-11-19T10:00:00.000Z'),
+    endDateTime: DateTime.parse('2019-11-19T14:00:00.000Z'),
+    tag: 'fixture',
+  );
+  final tEventModelWithoutId = EventModel(
+    id: null,
     name: 'test',
     createDateTime: DateTime.parse('2019-11-18T12:00:00.000Z'),
     creator: 'user1',
@@ -68,10 +80,11 @@ void main() {
 
         // assert
         final expectedEventMap = {
+          'id': 0,
           'name': 'test',
           'createDateTime': '2019-11-18T12:00:00.000Z',
           'creator': 'user1',
-          'participants': ['user1', 'user2', 'user3'],
+          'participants': '["user1","user2","user3"]',
           'startDateTime': '2019-11-19T10:00:00.000Z',
           'endDateTime': '2019-11-19T14:00:00.000Z',
           'tag': 'fixture',
@@ -88,6 +101,7 @@ void main() {
 
         // assert
         final expectedEventMap = {
+          'id': 0,
           'name': 'test',
           'createDateTime': '2019-11-18T12:00:00.000Z',
           'creator': null,
@@ -95,6 +109,28 @@ void main() {
           'startDateTime': null,
           'endDateTime': null,
           'tag': null,
+        };
+
+        // assert
+        expect(result, equals(expectedEventMap));
+      },
+    );
+
+    test(
+      'should return a map containing the proper data without id when id in EventModel is null',
+      () async {
+        // act
+        final result = tEventModelWithoutId.toMap();
+
+        // assert
+        final expectedEventMap = {
+          'name': 'test',
+          'createDateTime': '2019-11-18T12:00:00.000Z',
+          'creator': 'user1',
+          'participants': '["user1","user2","user3"]',
+          'startDateTime': '2019-11-19T10:00:00.000Z',
+          'endDateTime': '2019-11-19T14:00:00.000Z',
+          'tag': 'fixture',
         };
 
         // assert
