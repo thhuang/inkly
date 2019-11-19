@@ -20,8 +20,8 @@ dependencies:
   equatable: ^0.6.1
   # Local database
   sqflite: ^1.1.7+2
-  # Path manipulation
-  path: ^1.6.4
+  # Collection equality
+  collection: ^1.14.11
 
 dev_dependencies:
   flutter_test:
