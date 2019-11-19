@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/storages/local_storage.dart';
 import '../models/event_model.dart';

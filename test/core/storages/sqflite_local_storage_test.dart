@@ -10,23 +10,18 @@ import '../../fixtures/fixture_reader.dart';
 
 class MockDataBase extends Mock implements Database {}
 
-class MockEventModel extends Mock implements EventModel {}
-
 void main() {
   SqfliteLocalStorage sqfliteLocalStorage;
   MockDataBase mockDataBase;
-  MockEventModel tEventModel;
-  int tEventId;
 
   setUp(() {
     mockDataBase = MockDataBase();
     sqfliteLocalStorage = SqfliteLocalStorage(database: mockDataBase);
-
-    tEventModel = MockEventModel();
-    tEventId = 0;
-
-    when(tEventModel.id).thenReturn(tEventId);
   });
+
+  final tEventMap = jsonDecode(fixture('event.json'));
+  final tEventModel = EventModel.fromMap(tEventMap);
+  final tEventId = 0;
 
   group('getEventList', () {
     test(
@@ -58,15 +53,10 @@ void main() {
     test(
       'should add the EventModel to the database',
       () async {
-        // arrange
-        final tEventMap = jsonDecode(fixture('event.json'));
-        when(tEventModel.toMap()).thenReturn(tEventMap);
-
         // act
         sqfliteLocalStorage.addEvent('events', tEventModel);
 
         // assert
-        verify(tEventModel.toMap()).called(1);
         verify(mockDataBase.insert(
           'events',
           tEventMap,
@@ -79,8 +69,6 @@ void main() {
       'should return the id of the EventModel added to the database',
       () async {
         // arrange
-        final tEventMap = jsonDecode(fixture('event.json'));
-        when(tEventModel.toMap()).thenReturn(tEventMap);
         when(mockDataBase.insert(
           any,
           any,
@@ -92,7 +80,6 @@ void main() {
             await sqfliteLocalStorage.addEvent('events', tEventModel);
 
         // assert
-        verify(tEventModel.toMap()).called(1);
         verify(mockDataBase.insert(
           'events',
           tEventMap,
@@ -111,7 +98,6 @@ void main() {
         sqfliteLocalStorage.deleteEvent('events', tEventModel);
 
         // assert
-        verify(tEventModel.id).called(1);
         verify(mockDataBase.delete(
           'event',
           where: 'id = ?',
@@ -126,15 +112,11 @@ void main() {
       'should update the EventModel with the same id in the database',
       () async {
         // arrange
-        final tEventMap = jsonDecode(fixture('event.json'));
-        when(tEventModel.toMap()).thenReturn(tEventMap);
 
         // act
         await sqfliteLocalStorage.updateEvent('events', tEventModel);
 
         // assert
-        verify(tEventModel.id).called(1);
-        verify(tEventModel.toMap()).called(1);
         verify(mockDataBase.update(
           'event',
           tEventMap,

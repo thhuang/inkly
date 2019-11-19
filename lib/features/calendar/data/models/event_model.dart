@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:inkly/core/authentication/user.dart';
 import 'package:meta/meta.dart';
-import 'package:inkly/features/calendar/domain/entities/event.dart';
+
+import '../../domain/entities/event.dart';
 
 class EventModel extends Event {
   final int id;
