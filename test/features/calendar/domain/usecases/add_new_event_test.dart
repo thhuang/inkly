@@ -20,7 +20,7 @@ void main() {
   final tEvent = Event(name: 'test', createDateTime: DateTime(2000));
 
   test(
-    'should pass the call to the repository when success',
+    'should forward the call to the repository when success',
     () async {
       // arrange
       final tID = 'index';
@@ -37,7 +37,7 @@ void main() {
   );
 
   test(
-    'should pass the call to the repository when failure',
+    'should forward the call to the repository when failure',
     () async {
       // arrange
       final tFailure = ServerFailure();

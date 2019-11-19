@@ -21,7 +21,7 @@ void main() {
   });
 
   test(
-    'should pass the call to the repository when success',
+    'should forward the call to the repository when success',
     () async {
       // arrange
       final tEventStream = MockEventStream();
@@ -38,7 +38,7 @@ void main() {
   );
 
   test(
-    'should pass the call to the repository when failure',
+    'should forward the call to the repository when failure',
     () async {
       // arrange
       final tFailure = ServerFailure();
