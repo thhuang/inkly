@@ -55,12 +55,12 @@ class TestButton extends StatelessWidget {
         ),
       ),
       onPressed: () async {
-        final _now = DateTime.now();
+        final selectedDay = Provider.of<ValueNotifier<DateTime>>(context).value;
         final newEvent = Event(
           name: 'test',
-          createDateTime: _now,
-          startDateTime: _now.subtract(Duration(days: 1, minutes: 30)),
-          endDateTime: _now.subtract(Duration(days: 1)),
+          createDateTime: selectedDay,
+          startDateTime: selectedDay.subtract(Duration(minutes: 10)),
+          endDateTime: selectedDay.add(Duration(minutes: 15)),
         );
         await Provider.of<EventListNotifier>(context).addEvent(newEvent);
       },
