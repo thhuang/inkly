@@ -9,7 +9,7 @@ abstract class EventLocalDataSource {
   /// Throws [CacheException] if failure.
   Future<List<EventModel>> getEventList();
 
-  Future<void> addEvent(EventModel event);
+  Future<int> addEvent(EventModel event);
 
   Future<void> updateEvent(EventModel event);
 
@@ -24,9 +24,9 @@ class EventLocalDataSourceImpl implements EventLocalDataSource {
   EventLocalDataSourceImpl({this.localStorage});
 
   @override
-  Future<void> addEvent(EventModel event) async {
+  Future<int> addEvent(EventModel event) async {
     try {
-      await localStorage.addEvent(EVENT_TABLE, event);
+      return await localStorage.addEvent(EVENT_TABLE, event);
     } catch (e) {
       throw CacheException();
     }

@@ -38,6 +38,23 @@ void main() {
     );
 
     test(
+      'should return the id of the EventModel added to the LocalStorage',
+      () async {
+        // arrange
+        final tEventId = 0;
+        when(mockLocalStorage.addEvent(any, any)).thenAnswer(
+          (_) async => tEventId,
+        );
+
+        // act
+        final result = await dataSource.addEvent(tEventModel);
+
+        // assert
+        expect(result, equals(tEventId));
+      },
+    );
+
+    test(
       'should throw CacheException when insertion failed',
       () async {
         // arrange
