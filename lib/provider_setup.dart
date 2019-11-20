@@ -5,16 +5,16 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../core/storages/local_storage.dart';
-import '../../core/storages/sqflite_local_storage.dart';
-import 'data/datasources/event_local_data_source.dart';
-import 'data/repositories/event_repository_impl.dart';
-import 'domain/repositories/event_repository.dart';
-import 'domain/usecases/add_event.dart';
-import 'domain/usecases/get_event_list.dart';
-import 'presentation/logicholders/event_list_notifier.dart';
+import 'core/storages/local_storage.dart';
+import 'core/storages/sqflite_local_storage.dart';
+import 'features/calendar/data/datasources/event_local_data_source.dart';
+import 'features/calendar/data/repositories/event_repository_impl.dart';
+import 'features/calendar/domain/repositories/event_repository.dart';
+import 'features/calendar/domain/usecases/add_event.dart';
+import 'features/calendar/domain/usecases/get_event_list.dart';
+import 'features/calendar/presentation/logicholders/event_list_notifier.dart';
 
-List<SingleChildCloneableWidget> calendarProviders = [
+List<SingleChildCloneableWidget> providers = [
   ...externalServices,
   ...coreProviders,
   ...featureProviders,
