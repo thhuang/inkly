@@ -10,7 +10,11 @@ class EventList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dayEvents = Provider.of<ValueNotifier<List<Event>>>(context).value;
+    final day = Provider.of<ValueNotifier<DateTime>>(context).value;
+    final dayEvents =
+        Provider.of<ValueNotifier<Map<DateTime, List<Event>>>>(context)
+                .value[DateTime(day.year, day.month, day.day)] ??
+            [];
 
     return ListView.builder(
       padding: EdgeInsets.symmetric(

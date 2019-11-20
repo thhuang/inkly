@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/calendar/domain/entities/event.dart';
-import 'package:inkly/features/calendar/presentation/logicholders/event_list_notifier.dart';
+import '../../../../core/utils/event_list_to_event_map.dart';
+import '../../domain/entities/event.dart';
+import '../logicholders/event_list_notifier.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/calendar.dart';
@@ -13,12 +14,14 @@ class CalendarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final converter = EventListToEventMap();
     return Scaffold(
       body: SafeArea(
         child: MultiProvider(
           providers: [
-            ChangeNotifierProvider<ValueNotifier<List<Event>>>(
-              builder: (_) => ValueNotifier<List<Event>>([]),
+            ChangeNotifierProvider<ValueNotifier<Map<DateTime, List<Event>>>>(
+              builder: (_) => ValueNotifier<Map<DateTime, List<Event>>>(
+                  converter(Provider.of<EventListNotifier>(context).eventList)),
             ),
             ChangeNotifierProvider<ValueNotifier<DateTime>>(
               builder: (_) => ValueNotifier<DateTime>(DateTime.now()),
@@ -55,14 +58,19 @@ class TestButton extends StatelessWidget {
         ),
       ),
       onPressed: () async {
-        final selectedDay = Provider.of<ValueNotifier<DateTime>>(context).value;
-        final newEvent = Event(
-          name: 'test',
-          createDateTime: selectedDay,
-          startDateTime: selectedDay.subtract(Duration(minutes: 10)),
-          endDateTime: selectedDay.add(Duration(minutes: 15)),
+        final selectedDay = Provider.of<ValueNotifier<DateTime>>(context, listen: false).value;
+        await Provider.of<EventListNotifier>(context).addEvent(
+          Event(
+            name: 'test',
+            createDateTime: selectedDay,
+            startDateTime: selectedDay.subtract(Duration(minutes: 10)),
+            endDateTime: selectedDay.add(Duration(minutes: 15)),
+          ),
         );
-        await Provider.of<EventListNotifier>(context).addEvent(newEvent);
+
+        final converter = EventListToEventMap();
+        Provider.of<ValueNotifier<Map<DateTime, List<Event>>>>(context).value =
+            converter(Provider.of<EventListNotifier>(context).eventList);
       },
     );
   }

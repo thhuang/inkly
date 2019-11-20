@@ -31,9 +31,9 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    final converter = EventListToEventMap();
     return TableCalendar(
-      events: converter(Provider.of<EventListNotifier>(context).eventList),
+      events:
+          Provider.of<ValueNotifier<Map<DateTime, List<Event>>>>(context).value,
       calendarController: _calendarController,
       onVisibleDaysChanged: _onVisibleDaysChanged,
       onDaySelected: _onDaySelected,
@@ -49,7 +49,5 @@ class _CalendarState extends State<Calendar> {
   void _onDaySelected(DateTime day, List<dynamic> events) {
     print('CALLBACK: _onDaySelected');
     Provider.of<ValueNotifier<DateTime>>(context).value = day;
-    Provider.of<ValueNotifier<List<Event>>>(context).value =
-        events.cast<Event>();
   }
 }

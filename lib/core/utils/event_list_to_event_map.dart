@@ -1,6 +1,7 @@
 import 'package:inkly/features/calendar/domain/entities/event.dart';
 
 class EventListToEventMap {
+  // TODO: need refactor!
   Map<DateTime, List<Event>> call(List<Event> eventList) {
     var eventMap = Map<DateTime, List<Event>>();
     eventList.forEach((event) {
