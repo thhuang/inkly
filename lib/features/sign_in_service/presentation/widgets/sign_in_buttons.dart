@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:inkly/features/calendar/presentation/logicholders/event_list_notifier.dart';
+import 'package:inkly/features/calendar/presentation/logicholders/event_list_state.dart';
+import 'package:provider/provider.dart';
 
 import '../../../calendar/presentation/screens/calendar_screen.dart';
 import '../../constants.dart';
@@ -44,17 +47,20 @@ class SignInButtons extends StatelessWidget {
           child: Text('or'),
         ),
         SizedBox(height: 7.0),
-        RoundedOutlineButton(
-          color: Colors.black26,
-          child: Text(
-            'Sign in anonymously',
-            style: TextStyle(color: Colors.black54),
+        Consumer<EventListNotifier>(
+          builder: (context, events, _) => RoundedOutlineButton(
+            color: Colors.black26,
+            child: Text(
+              'Sign in anonymously',
+              style: TextStyle(color: Colors.black54),
+            ),
+            onPressed: () async {
+              // TODO: sign in with firebase authentication
+              print('Sign in anonymously');
+              await events.getEventList();
+              Navigator.pushNamed(context, CalendarScreen.id);
+            },
           ),
-          onPressed: () {
-            // TODO: sign in with firebase authentication
-            print('Sign in anonymously');
-            Navigator.pushNamed(context, CalendarScreen.id);
-          },
         ),
       ],
     );

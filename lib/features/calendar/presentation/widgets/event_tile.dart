@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:inkly/features/calendar/domain/entities/event.dart';
 
 class EventTile extends StatelessWidget {
-  final String taskName;
+  final Event event;
 
   const EventTile({
     Key key,
-    @required this.taskName,
+    @required this.event,
   }) : super(key: key);
 
   @override
@@ -17,8 +18,8 @@ class EventTile extends StatelessWidget {
         children: <Widget>[
           Column(
             children: <Widget>[
-              Text('1:30 PM'),
-              Text('3:30 PM'),
+              Text('${event.startDateTime.hour}:${event.startDateTime.minute}'),
+              Text('${event.endDateTime.hour}:${event.endDateTime.minute}'),
             ],
           ),
           SizedBox(width: 10.0),
@@ -28,7 +29,7 @@ class EventTile extends StatelessWidget {
             color: Colors.blue,
           ),
           SizedBox(width: 10.0),
-          Text(taskName),
+          Text(event.name),
         ],
       ),
       trailing: Icon(FontAwesomeIcons.user),

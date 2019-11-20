@@ -11,14 +11,19 @@ class CalendarScreen extends StatelessWidget {
 
   const CalendarScreen({Key key}) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: ChangeNotifierProvider<ValueNotifier<List<String>>>(
-          builder: (_) => ValueNotifier<List<String>>([]),
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<ValueNotifier<List<Event>>>(
+              builder: (_) => ValueNotifier<List<Event>>([]),
+            ),
+            ChangeNotifierProvider<ValueNotifier<DateTime>>(
+              builder: (_) => ValueNotifier<DateTime>(DateTime.now()),
+            ),
+          ],
           child: Column(
             children: <Widget>[
               Calendar(),
@@ -49,12 +54,15 @@ class TestButton extends StatelessWidget {
           child: Icon(Icons.add, color: Colors.white),
         ),
       ),
-      onPressed: () {
-        final event = Event(name: 'test', createDateTime: DateTime.now());
-        final state = Provider.of<EventListNotifier>(context).state;
-        final eventList = Provider.of<EventListNotifier>(context).eventList;
-        print(state);
-        print(eventList);
+      onPressed: () async {
+        final _now = DateTime.now();
+        final newEvent = Event(
+          name: 'test',
+          createDateTime: _now,
+          startDateTime: _now.subtract(Duration(days: 1, minutes: 30)),
+          endDateTime: _now.subtract(Duration(days: 1)),
+        );
+        await Provider.of<EventListNotifier>(context).addEvent(newEvent);
       },
     );
   }

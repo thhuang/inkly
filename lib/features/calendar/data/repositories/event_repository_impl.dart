@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:inkly/features/calendar/data/models/event_model.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -14,7 +15,17 @@ class EventRepositoryImpl implements EventRepository {
   @override
   Future<Either<Failure, String>> addEvent(Event event) async {
     try {
-      final intId = await localDataSource.addEvent(event);
+      final intId = await localDataSource.addEvent(
+        EventModel(
+          createDateTime: event.createDateTime,
+          name: event.name,
+          creator: event.creator,
+          participants: event.participants,
+          startDateTime: event.startDateTime,
+          endDateTime: event.endDateTime,
+          tag: event.tag,
+        ),
+      );
       return Right(intId.toString());
     } on CacheException {
       return Left(CacheFailure());
