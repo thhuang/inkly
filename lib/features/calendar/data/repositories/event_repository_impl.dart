@@ -12,7 +12,7 @@ class EventRepositoryImpl implements EventRepository {
   EventRepositoryImpl({this.localDataSource});
 
   @override
-  Future<Either<Failure, String>> addNewEvent(Event event) async {
+  Future<Either<Failure, String>> addEvent(Event event) async {
     try {
       final intId = await localDataSource.addEvent(event);
       return Right(intId.toString());

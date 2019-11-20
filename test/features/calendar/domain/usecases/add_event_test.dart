@@ -3,18 +3,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:inkly/core/error/failures.dart';
 import 'package:inkly/features/calendar/domain/entities/event.dart';
 import 'package:inkly/features/calendar/domain/repositories/event_repository.dart';
-import 'package:inkly/features/calendar/domain/usecases/add_new_event.dart';
+import 'package:inkly/features/calendar/domain/usecases/add_event.dart';
 import 'package:mockito/mockito.dart';
 
 class MockEventRepository extends Mock implements EventRepository {}
 
 void main() {
-  AddNewEvent addNewEvent;
+  AddEvent addEvent;
   MockEventRepository mockEventRepository;
 
   setUp(() {
     mockEventRepository = MockEventRepository();
-    addNewEvent = AddNewEvent(repository: mockEventRepository);
+    addEvent = AddEvent(repository: mockEventRepository);
   });
 
   final tEvent = Event(name: 'test', createDateTime: DateTime(2000));
@@ -24,14 +24,14 @@ void main() {
     () async {
       // arrange
       final tID = 'index';
-      when(mockEventRepository.addNewEvent(any))
+      when(mockEventRepository.addEvent(any))
           .thenAnswer((_) async => Right(tID));
 
       // act
-      final result = await addNewEvent(Params(event: tEvent));
+      final result = await addEvent(Params(event: tEvent));
 
       // assert
-      verify(mockEventRepository.addNewEvent(tEvent)).called(1);
+      verify(mockEventRepository.addEvent(tEvent)).called(1);
       expect(result, Right(tID));
     },
   );
@@ -41,11 +41,11 @@ void main() {
     () async {
       // arrange
       final tFailure = ServerFailure();
-      when(mockEventRepository.addNewEvent(any))
+      when(mockEventRepository.addEvent(any))
           .thenAnswer((_) async => Left(tFailure));
 
       // act
-      final result = await addNewEvent(Params(event: tEvent));
+      final result = await addEvent(Params(event: tEvent));
 
       // assert
       expect(result, Left(tFailure));

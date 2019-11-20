@@ -23,7 +23,7 @@ void main() {
     repository = EventRepositoryImpl(localDataSource: mockEventLocalDataSource);
   });
 
-  group('addNewEvent', () {
+  group('addEvent', () {
     final tEvent = EventModel.fromMap(
       jsonDecode(fixture('event_without_id.json')),
     );
@@ -32,7 +32,7 @@ void main() {
       'should add the event to local data source',
       () async {
         // act
-        repository.addNewEvent(tEvent);
+        repository.addEvent(tEvent);
 
         // assert
         verify(mockEventLocalDataSource.addEvent(tEvent)).called(1);
@@ -49,7 +49,7 @@ void main() {
             .thenAnswer((_) async => tEventIdInt);
 
         // act
-        final result = await repository.addNewEvent(tEvent);
+        final result = await repository.addEvent(tEvent);
 
         // assert
         expect(result, equals(Right(tEventIdString)));
@@ -61,7 +61,7 @@ void main() {
       when(mockEventLocalDataSource.addEvent(any)).thenThrow(CacheException());
 
       // act
-      final result = await repository.addNewEvent(tEvent);
+      final result = await repository.addEvent(tEvent);
 
       // assert
       expect(result, equals(Left(CacheFailure())));
