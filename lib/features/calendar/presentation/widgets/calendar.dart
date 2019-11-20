@@ -119,6 +119,7 @@ class _CalendarState extends State<Calendar> {
 
   void _onDaySelected(DateTime day, List<dynamic> events) {
     print('CALLBACK: _onDaySelected');
-    Provider.of<ValueNotifier<List<String>>>(context).value = events.whereType<String>().toList();
+    Provider.of<ValueNotifier<List<String>>>(context).value =
+        events.whereType<String>().toList();
   }
 }
