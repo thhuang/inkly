@@ -48,7 +48,6 @@ void main() {
       final result = await addNewEvent(Params(event: tEvent));
 
       // assert
-      verify(mockEventRepository.addNewEvent(tEvent)).called(1);
       expect(result, Left(tFailure));
     },
   );

@@ -48,7 +48,6 @@ void main() {
       final result = getEventStream(NoParams());
 
       // assert
-      verify(mockEventRepository.getEventStream()).called(1);
       expect(result, equals(Left(tFailure)));
     },
   );
