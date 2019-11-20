@@ -3,6 +3,18 @@ import '../../../../core/storages/local_storage.dart';
 import '../models/event_model.dart';
 
 const EVENT_TABLE = 'events';
+const DB_CREATE_CMD = '''
+  CREATE TABLE $EVENT_TABLE(
+    id INTEGER PRIMARY KEY, 
+    name TEXT not null, 
+    createDateTime TEXT not null,
+    creator TEXT,
+    participants TEXT,
+    startDateTime TEXT,
+    endDateTime TEXT,
+    tag, TEXT
+  )
+''';
 
 abstract class EventLocalDataSource {
   /// Get the snapshot of the list of cached [EventModel]s

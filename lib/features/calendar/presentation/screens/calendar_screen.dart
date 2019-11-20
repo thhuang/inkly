@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inkly/features/calendar/calendar_provider_setup.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/calendar.dart';
@@ -11,18 +12,21 @@ class CalendarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: ChangeNotifierProvider<ValueNotifier<List<String>>>(
-          builder: (_) => ValueNotifier<List<String>>([]),
-          child: Column(
-            children: <Widget>[
-              Calendar(),
-              Divider(height: 3.0),
-              Expanded(
-                child: EventList(),
-              ),
-            ],
+    return MultiProvider(
+      providers: calendarProviders,
+      child: Scaffold(
+        body: SafeArea(
+          child: ChangeNotifierProvider<ValueNotifier<List<String>>>(
+            builder: (_) => ValueNotifier<List<String>>([]),
+            child: Column(
+              children: <Widget>[
+                Calendar(),
+                Divider(height: 3.0),
+                Expanded(
+                  child: EventList(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
