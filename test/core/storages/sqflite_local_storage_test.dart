@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:inkly/core/storages/sqflite_local_storage.dart';
+import 'package:inkly/features/calendar/data/datasources/event_local_data_source.dart';
 import 'package:inkly/features/calendar/data/models/event_model.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sqflite/sqflite.dart';
@@ -36,14 +37,14 @@ void main() {
             .thenAnswer((_) async => tReturnEventMapList);
 
         // act
-        final result = await sqfliteLocalStorage.getEventList('events');
+        final result = await sqfliteLocalStorage.getEventList(EVENT_TABLE);
 
         // assert
         final expectedReturnEventList = [
           EventModel.fromMap(jsonDecode(fixture('event.json'))),
           EventModel.fromMap(jsonDecode(fixture('event_min.json'))),
         ];
-        verify(mockDataBase.query('events')).called(1);
+        verify(mockDataBase.query(EVENT_TABLE)).called(1);
         expect(result, equals(expectedReturnEventList));
       },
     );
@@ -54,11 +55,11 @@ void main() {
       'should add the EventModel to the database',
       () async {
         // act
-        sqfliteLocalStorage.addEvent('events', tEventModel);
+        sqfliteLocalStorage.addEvent(EVENT_TABLE, tEventModel);
 
         // assert
         verify(mockDataBase.insert(
-          'events',
+          EVENT_TABLE,
           tEventMap,
           conflictAlgorithm: ConflictAlgorithm.replace,
         )).called(1);
@@ -77,11 +78,11 @@ void main() {
 
         // act
         final result =
-            await sqfliteLocalStorage.addEvent('events', tEventModel);
+            await sqfliteLocalStorage.addEvent(EVENT_TABLE, tEventModel);
 
         // assert
         verify(mockDataBase.insert(
-          'events',
+          EVENT_TABLE,
           tEventMap,
           conflictAlgorithm: ConflictAlgorithm.replace,
         )).called(1);
@@ -95,11 +96,11 @@ void main() {
       'should delete the EventModel from the database',
       () async {
         // act
-        sqfliteLocalStorage.deleteEvent('events', tEventModel);
+        sqfliteLocalStorage.deleteEvent(EVENT_TABLE, tEventModel);
 
         // assert
         verify(mockDataBase.delete(
-          'event',
+          EVENT_TABLE,
           where: 'id = ?',
           whereArgs: [tEventId],
         )).called(1);
@@ -118,7 +119,7 @@ void main() {
 
         // assert
         verify(mockDataBase.update(
-          'event',
+          EVENT_TABLE,
           tEventMap,
           where: 'id = ?',
           whereArgs: [tEventId],

@@ -2,6 +2,8 @@ import '../../../../core/error/exceptions.dart';
 import '../../../../core/storages/local_storage.dart';
 import '../models/event_model.dart';
 
+const EVENT_TABLE = 'events';
+
 abstract class EventLocalDataSource {
   /// Get the snapshot of the list of cached [EventModel]s
   /// which are stored in the local database.
@@ -15,8 +17,6 @@ abstract class EventLocalDataSource {
 
   Future<void> deleteEvent(EventModel event);
 }
-
-const EVENT_TABLE = 'events';
 
 class EventLocalDataSourceImpl implements EventLocalDataSource {
   final LocalStorage localStorage;
