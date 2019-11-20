@@ -21,9 +21,7 @@ void main() {
     dataSource = EventLocalDataSourceImpl(localStorage: mockLocalStorage);
   });
 
-  final tEventModel = EventModel.fromMap(
-    jsonDecode(fixture('event.json')),
-  );
+  final tEventModel = EventModel.fromMap(jsonDecode(fixture('event.json')));
 
   group('addEvent', () {
     test(
@@ -42,9 +40,8 @@ void main() {
       () async {
         // arrange
         final tEventId = 0;
-        when(mockLocalStorage.addEvent(any, any)).thenAnswer(
-          (_) async => tEventId,
-        );
+        when(mockLocalStorage.addEvent(any, any))
+            .thenAnswer((_) async => tEventId);
 
         // act
         final result = await dataSource.addEvent(tEventModel);
@@ -78,9 +75,8 @@ void main() {
           EventModel.fromMap(jsonDecode(fixture('event.json'))),
           EventModel.fromMap(jsonDecode(fixture('event_min.json'))),
         ];
-        when(
-          mockLocalStorage.getEventList(any),
-        ).thenAnswer((_) async => tEventList);
+        when(mockLocalStorage.getEventList(any))
+            .thenAnswer((_) async => tEventList);
 
         // act
         final result = await dataSource.getEventList();
@@ -129,9 +125,8 @@ void main() {
         await dataSource.deleteEvent(tEventModel);
 
         // assert
-        verify(
-          mockLocalStorage.deleteEvent(EVENT_TABLE, tEventModel),
-        ).called(1);
+        verify(mockLocalStorage.deleteEvent(EVENT_TABLE, tEventModel))
+            .called(1);
       },
     );
 
@@ -158,9 +153,8 @@ void main() {
         await dataSource.updateEvent(tEventModel);
 
         // assert
-        verify(
-          mockLocalStorage.updateEvent(EVENT_TABLE, tEventModel),
-        ).called(1);
+        verify(mockLocalStorage.updateEvent(EVENT_TABLE, tEventModel))
+            .called(1);
       },
     );
 

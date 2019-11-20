@@ -32,9 +32,8 @@ void main() {
         EventModel.fromMap(jsonDecode(fixture('event.json'))),
         EventModel.fromMap(jsonDecode(fixture('event_min.json'))),
       ];
-      when(mockEventRepository.getEventList()).thenAnswer(
-        (_) async => Right(tEventList),
-      );
+      when(mockEventRepository.getEventList())
+          .thenAnswer((_) async => Right(tEventList));
 
       // act
       final result = await getEventList(NoParams());
@@ -50,9 +49,8 @@ void main() {
     () async {
       // arrange
       final tFailure = CacheFailure();
-      when(mockEventRepository.getEventList()).thenAnswer(
-        (_) async => Left(tFailure),
-      );
+      when(mockEventRepository.getEventList())
+          .thenAnswer((_) async => Left(tFailure));
 
       // act
       final result = await getEventList(NoParams());
