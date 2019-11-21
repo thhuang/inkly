@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import '../../../../core/utils/event_list_to_event_map.dart';
 import '../../domain/entities/event.dart';
 import '../logicholders/event_list_notifier.dart';
-import 'package:provider/provider.dart';
-
 import '../widgets/calendar.dart';
 import '../widgets/event_list.dart';
 
@@ -58,7 +58,8 @@ class TestButton extends StatelessWidget {
         ),
       ),
       onPressed: () async {
-        final selectedDay = Provider.of<ValueNotifier<DateTime>>(context, listen: false).value;
+        final selectedDay =
+            Provider.of<ValueNotifier<DateTime>>(context, listen: false).value;
         await Provider.of<EventListNotifier>(context).addEvent(
           Event(
             name: 'test',

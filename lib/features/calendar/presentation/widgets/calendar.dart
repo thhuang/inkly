@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/calendar/domain/entities/event.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../../core/utils/event_list_to_event_map.dart';
-import '../logicholders/event_list_notifier.dart';
+import '../../domain/entities/event.dart';
 
 class Calendar extends StatefulWidget {
   Calendar({Key key}) : super(key: key);

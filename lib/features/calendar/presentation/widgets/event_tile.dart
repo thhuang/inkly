@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:inkly/features/calendar/domain/entities/event.dart';
+
+import '../../domain/entities/event.dart';
 
 class EventTile extends StatelessWidget {
   final Event event;

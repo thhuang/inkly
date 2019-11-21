@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/calendar/domain/entities/event.dart';
-import 'package:inkly/features/calendar/presentation/logicholders/event_list_notifier.dart';
 import 'package:provider/provider.dart';
 
+import '../../domain/entities/event.dart';
 import 'event_tile.dart';
 
 class EventList extends StatelessWidget {
