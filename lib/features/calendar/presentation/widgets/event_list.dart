@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../domain/entities/event.dart';
+import '../logicholders/event_list_notifier.dart';
 import 'event_tile.dart';
 
 class EventList extends StatelessWidget {
@@ -9,20 +9,18 @@ class EventList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final day = Provider.of<ValueNotifier<DateTime>>(context).value;
-    final dayEvents =
-        Provider.of<ValueNotifier<Map<DateTime, List<Event>>>>(context)
-                .value[DateTime(day.year, day.month, day.day)] ??
-            [];
-
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(
-        horizontal: 30.0,
-      ),
-      itemCount: dayEvents.length,
-      itemBuilder: (BuildContext context, int index) {
-        return EventTile(
-          event: dayEvents[index],
+    return Consumer2<ValueNotifier<DateTime>, EventListNotifier>(
+      builder: (context, date, events, child) {
+        final day = DateTime(date.value.year, date.value.month, date.value.day);
+        final dayEvents = events.eventMap[day] ?? [];
+        return ListView.builder(
+          padding: EdgeInsets.symmetric(
+            horizontal: 30.0,
+          ),
+          itemCount: dayEvents.length,
+          itemBuilder: (context, index) => EventTile(
+            event: dayEvents[index],
+          ),
         );
       },
     );

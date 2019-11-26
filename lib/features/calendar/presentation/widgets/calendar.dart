@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../domain/entities/event.dart';
+import '../logicholders/event_list_notifier.dart';
 
 class Calendar extends StatefulWidget {
   Calendar({Key key}) : super(key: key);
@@ -30,8 +30,7 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
-      events:
-          Provider.of<ValueNotifier<Map<DateTime, List<Event>>>>(context).value,
+      events: Provider.of<EventListNotifier>(context).eventMap,
       calendarController: _calendarController,
       onVisibleDaysChanged: _onVisibleDaysChanged,
       onDaySelected: _onDaySelected,

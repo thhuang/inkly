@@ -1,6 +1,7 @@
 import 'dart:core';
 
 import 'package:flutter/foundation.dart';
+import '../../../../core/utils/event_list_to_event_map.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
@@ -12,17 +13,22 @@ import 'event_list_state.dart';
 class EventListNotifier with ChangeNotifier {
   final GetEventList _getEventList;
   final AddEvent _addEvent;
+  final EventListToEventMap _eventListToEventMap;
 
   List<Event> eventList;
+  Map<DateTime, List<Event>> eventMap;
   EventListState state = Uninitialized();
 
   EventListNotifier({
     @required getEventList,
     @required addEvent,
+    @required eventListToEventMap,
   })  : assert(getEventList != null),
         assert(addEvent != null),
+        assert(eventListToEventMap != null),
         _getEventList = getEventList,
-        _addEvent = addEvent;
+        _addEvent = addEvent,
+        _eventListToEventMap = eventListToEventMap;
 
   Future<void> getEventList() async {
     _loadingStateTransition();
@@ -30,7 +36,9 @@ class EventListNotifier with ChangeNotifier {
     eitherFailureOrEvents.fold(
       (failure) => _errorStateTransition(_mapFailureToMessage(failure)),
       (events) {
+        // TODO: need refactor!
         eventList = events;
+        eventMap = _eventListToEventMap(events);
         _loadedStateTransition();
       },
     );

@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:inkly/core/error/failures.dart';
 import 'package:inkly/core/usecases/usecase.dart';
+import 'package:inkly/core/utils/event_list_to_event_map.dart';
 import 'package:inkly/features/calendar/data/models/event_model.dart';
 import 'package:inkly/features/calendar/domain/entities/event.dart';
 import 'package:inkly/features/calendar/domain/usecases/add_event.dart';
@@ -19,19 +20,24 @@ class MockGetEventList extends Mock implements GetEventList {}
 
 class MockAddEvent extends Mock implements AddEvent {}
 
+class MockEventListToEventMap extends Mock implements EventListToEventMap {}
+
 void main() {
   EventListNotifier eventListNotifier;
   MockGetEventList mockGetEventList;
   MockAddEvent mockAddEvent;
+  MockEventListToEventMap mockEventListToEventMap;
   List<EventListState> stateLog;
   VoidCallback stateListener;
 
   setUp(() {
     mockGetEventList = MockGetEventList();
     mockAddEvent = MockAddEvent();
+    mockEventListToEventMap = MockEventListToEventMap();
     eventListNotifier = EventListNotifier(
       getEventList: mockGetEventList,
       addEvent: mockAddEvent,
+      eventListToEventMap: mockEventListToEventMap,
     );
     stateLog = <EventListState>[];
     stateListener = () => stateLog.add(eventListNotifier.state);
@@ -43,8 +49,12 @@ void main() {
     EventModel.fromMap(jsonDecode(fixture('event_min.json'))),
   ];
 
-  void setUpMockGetEventListSuccess() =>
-      when(mockGetEventList(any)).thenAnswer((_) async => Right(tEventList));
+  final tEventMap = Map<DateTime, List<Event>>();
+
+  void setUpMockGetEventListSuccess() {
+    when(mockGetEventList(any)).thenAnswer((_) async => Right(tEventList));
+    when(mockEventListToEventMap(any)).thenReturn(tEventMap);
+  }
 
   void setUpMockGetEventListFailure() =>
       when(mockGetEventList(any)).thenAnswer((_) async => Left(CacheFailure()));
@@ -103,6 +113,21 @@ void main() {
         final expectedStateLog = [Loading(), Loaded()];
         expect(stateLog, expectedStateLog);
         expect(eventListNotifier.eventList, equals(tEventList));
+      },
+    );
+
+    test(
+      'should call EventListToEventMap and update eventMap when data is gotten successfully',
+      () async {
+        // arrange
+        setUpMockGetEventListSuccess();
+
+        // act
+        await eventListNotifier.getEventList();
+
+        // assert
+        verify(mockEventListToEventMap(tEventList)).called(1);
+        expect(eventListNotifier.eventMap, equals(tEventMap));
       },
     );
 
@@ -207,6 +232,22 @@ void main() {
         // assert
         verify(mockGetEventList(NoParams())).called(1);
         expect(eventListNotifier.eventList, equals(tEventList));
+      },
+    );
+
+    test(
+      'should update the eventMap when the event is successfully added',
+      () async {
+        // arrange
+        setUpMockAddEventSuccess();
+        setUpMockGetEventListSuccess();
+
+        // act
+        await eventListNotifier.addEvent(tEvent);
+
+        // assert
+        verify(mockEventListToEventMap(tEventList)).called(1);
+        expect(eventListNotifier.eventMap, equals(tEventMap));
       },
     );
 

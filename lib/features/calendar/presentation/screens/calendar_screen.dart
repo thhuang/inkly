@@ -19,10 +19,6 @@ class CalendarScreen extends StatelessWidget {
       body: SafeArea(
         child: MultiProvider(
           providers: [
-            ChangeNotifierProvider<ValueNotifier<Map<DateTime, List<Event>>>>(
-              builder: (_) => ValueNotifier<Map<DateTime, List<Event>>>(
-                  converter(Provider.of<EventListNotifier>(context).eventList)),
-            ),
             ChangeNotifierProvider<ValueNotifier<DateTime>>(
               builder: (_) => ValueNotifier<DateTime>(DateTime.now()),
             ),
@@ -68,10 +64,6 @@ class TestButton extends StatelessWidget {
             endDateTime: selectedDay.add(Duration(minutes: 15)),
           ),
         );
-
-        final converter = EventListToEventMap();
-        Provider.of<ValueNotifier<Map<DateTime, List<Event>>>>(context).value =
-            converter(Provider.of<EventListNotifier>(context).eventList);
       },
     );
   }

@@ -7,6 +7,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'core/storages/local_storage.dart';
 import 'core/storages/sqflite_local_storage.dart';
+import 'core/utils/event_list_to_event_map.dart';
 import 'features/calendar/data/datasources/event_local_data_source.dart';
 import 'features/calendar/data/repositories/event_repository_impl.dart';
 import 'features/calendar/domain/repositories/event_repository.dart';
@@ -28,11 +29,13 @@ List<SingleChildCloneableWidget> featureProviders = [
 ];
 
 List<SingleChildCloneableWidget> logicHolderProviders = [
-  ChangeNotifierProxyProvider2<GetEventList, AddEvent, EventListNotifier>(
-    builder: (_, getEventList, addEvent, __) => EventListNotifier(
-      getEventList: getEventList,
-      addEvent: addEvent,
-    ),
+  ChangeNotifierProxyProvider3<GetEventList, AddEvent, EventListToEventMap,
+      EventListNotifier>(
+    builder: (_, getEventList, addEvent, eventListToEventMap, __) =>
+        EventListNotifier(
+            getEventList: getEventList,
+            addEvent: addEvent,
+            eventListToEventMap: eventListToEventMap),
   ),
 ];
 
@@ -70,6 +73,9 @@ List<SingleChildCloneableWidget> coreProviders = [
     builder: (_, database, __) => SqfliteLocalStorage(
       database: database,
     ),
+  ),
+  Provider<EventListToEventMap>(
+    builder: (_) => EventListToEventMap(),
   ),
 ];
 
