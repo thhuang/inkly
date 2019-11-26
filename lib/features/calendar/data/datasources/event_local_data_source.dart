@@ -12,7 +12,7 @@ const DB_CREATE_CMD = '''
     participants TEXT,
     startDateTime TEXT,
     endDateTime TEXT,
-    tag, TEXT
+    note, TEXT
   )
 ''';
 

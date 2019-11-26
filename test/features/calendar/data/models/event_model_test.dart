@@ -20,7 +20,7 @@ void main() {
     participants: ['user1', 'user2', 'user3'],
     startDateTime: DateTime.parse('2019-11-19T10:00:00.000Z'),
     endDateTime: DateTime.parse('2019-11-19T14:00:00.000Z'),
-    tag: 'fixture',
+    note: 'fixture',
   );
   final tEventModelWithoutId = EventModel(
     id: null,
@@ -30,7 +30,7 @@ void main() {
     participants: ['user1', 'user2', 'user3'],
     startDateTime: DateTime.parse('2019-11-19T10:00:00.000Z'),
     endDateTime: DateTime.parse('2019-11-19T14:00:00.000Z'),
-    tag: 'fixture',
+    note: 'fixture',
   );
 
   test(
@@ -87,7 +87,7 @@ void main() {
           'participants': '["user1","user2","user3"]',
           'startDateTime': '2019-11-19T10:00:00.000Z',
           'endDateTime': '2019-11-19T14:00:00.000Z',
-          'tag': 'fixture',
+          'note': 'fixture',
         };
         expect(result, equals(expectedEventMap));
       },
@@ -108,7 +108,7 @@ void main() {
           'participants': null,
           'startDateTime': null,
           'endDateTime': null,
-          'tag': null,
+          'note': null,
         };
 
         // assert
@@ -130,7 +130,7 @@ void main() {
           'participants': '["user1","user2","user3"]',
           'startDateTime': '2019-11-19T10:00:00.000Z',
           'endDateTime': '2019-11-19T14:00:00.000Z',
-          'tag': 'fixture',
+          'note': 'fixture',
         };
 
         // assert

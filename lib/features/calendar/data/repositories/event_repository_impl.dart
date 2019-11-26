@@ -23,7 +23,7 @@ class EventRepositoryImpl implements EventRepository {
           participants: event.participants,
           startDateTime: event.startDateTime,
           endDateTime: event.endDateTime,
-          tag: event.tag,
+          note: event.note,
         ),
       );
       return Right(intId.toString());

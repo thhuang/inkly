@@ -15,7 +15,7 @@ class EventModel extends Event {
     List<String> participants,
     DateTime startDateTime,
     DateTime endDateTime,
-    String tag,
+    String note,
   }) : super(
           name: name,
           createDateTime: createDateTime,
@@ -23,7 +23,7 @@ class EventModel extends Event {
           participants: participants,
           startDateTime: startDateTime,
           endDateTime: endDateTime,
-          tag: tag,
+          note: note,
         );
 
   factory EventModel.fromMap(Map<String, dynamic> eventMap) {
@@ -44,7 +44,7 @@ class EventModel extends Event {
       participants: participants,
       startDateTime: startDateTime,
       endDateTime: endDateTime,
-      tag: eventMap['tag'],
+      note: eventMap['note'],
     );
   }
 
@@ -58,7 +58,7 @@ class EventModel extends Event {
       'startDateTime':
           startDateTime == null ? null : startDateTime.toIso8601String(),
       'endDateTime': endDateTime == null ? null : endDateTime.toIso8601String(),
-      'tag': tag,
+      'note': note,
     };
     if (id != null) {
       eventMap['id'] = id;
