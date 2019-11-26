@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/calendar/presentation/logicholders/event_list_notifier.dart';
-import 'package:inkly/features/calendar/presentation/logicholders/event_list_state.dart';
 import 'package:provider/provider.dart';
 
+import '../../../calendar/presentation/logicholders/event_list_notifier.dart';
 import '../../../calendar/presentation/screens/calendar_screen.dart';
 import '../../constants.dart';
 import 'buttons.dart/image_button.dart';

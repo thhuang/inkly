@@ -7,7 +7,6 @@ import 'package:inkly/core/error/failures.dart';
 import 'package:inkly/features/calendar/data/datasources/event_local_data_source.dart';
 import 'package:inkly/features/calendar/data/models/event_model.dart';
 import 'package:inkly/features/calendar/data/repositories/event_repository_impl.dart';
-import 'package:inkly/features/calendar/domain/entities/event.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../fixtures/fixture_reader.dart';

@@ -7,7 +7,6 @@ import 'package:inkly/core/usecases/usecase.dart';
 import 'package:inkly/features/calendar/data/models/event_model.dart';
 import 'package:inkly/features/calendar/domain/entities/event.dart';
 import 'package:inkly/features/calendar/domain/repositories/event_repository.dart';
-import 'package:inkly/features/calendar/domain/usecases/add_event.dart';
 import 'package:inkly/features/calendar/domain/usecases/get_event_list.dart';
 import 'package:mockito/mockito.dart';
 

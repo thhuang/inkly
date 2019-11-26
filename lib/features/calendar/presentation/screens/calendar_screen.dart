@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/utils/event_list_to_event_map.dart';
 import '../../domain/entities/event.dart';
 import '../logicholders/event_list_notifier.dart';
 import '../widgets/calendar.dart';
@@ -14,7 +13,6 @@ class CalendarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final converter = EventListToEventMap();
     return Scaffold(
       body: SafeArea(
         child: MultiProvider(

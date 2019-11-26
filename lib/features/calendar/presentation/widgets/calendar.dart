@@ -13,7 +13,6 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   CalendarController _calendarController;
-  DateTime _selectedDay;
 
   @override
   void initState() {
