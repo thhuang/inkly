@@ -13,45 +13,61 @@ class CalendarScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: MultiProvider(
-          providers: [
-            ChangeNotifierProvider<ValueNotifier<DateTime>>(
-              builder: (_) => ValueNotifier<DateTime>(DateTime.now()),
-            ),
-          ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ValueNotifier<DateTime>>(
+          builder: (_) => ValueNotifier<DateTime>(DateTime.now()),
+        ),
+      ],
+      child: Scaffold(
+        body: SafeArea(
           child: Column(
             children: <Widget>[
               Calendar(),
               Divider(height: 3.0),
               Expanded(child: EventList()),
-              Expanded(child: TestButton()),
             ],
           ),
         ),
+        bottomNavigationBar: CalendarScreenNavigationBar(),
+        floatingActionButton: AddEventButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
   }
 }
 
-class TestButton extends StatelessWidget {
-  const TestButton({
+class CalendarScreenNavigationBar extends StatelessWidget {
+  const CalendarScreenNavigationBar({
     Key key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      child: Container(
-        color: Colors.red,
-        height: 50.0,
-        width: 100.0,
-        child: Center(
-          child: Icon(Icons.add, color: Colors.white),
-        ),
-      ),
+    return BottomAppBar(
+      child: Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        SizedBox(height: 50.0,)
+      ],
+    ),
+    shape: CircularNotchedRectangle(),
+    color: Theme.of(context).scaffoldBackgroundColor,
+    );
+  }
+}
+
+class AddEventButton extends StatelessWidget {
+  const AddEventButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
       onPressed: () async {
+        print('XD');
         final selectedDay =
             Provider.of<ValueNotifier<DateTime>>(context, listen: false).value;
         await Provider.of<EventListNotifier>(context).addEvent(
@@ -63,6 +79,8 @@ class TestButton extends StatelessWidget {
           ),
         );
       },
+      child: Icon(Icons.add),
+      backgroundColor: Theme.of(context).primaryColor,
     );
   }
 }
