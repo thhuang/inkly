@@ -106,4 +106,91 @@ void main() {
       expect(result, equals(expectedEventMap));
     },
   );
+
+  test(
+    'should not add the event to the map when the event does not have a starting time',
+    () async {
+      // arrange
+      final tEventList = [
+        Event(
+          name: 'test 0',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+        ),
+        Event(
+          name: 'test 1',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+        ),
+        Event(
+          name: 'test 2',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+        ),
+        Event(
+          name: 'test 3',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+          startDateTime: DateTime.parse('2019-11-11T19:00:00.000'),
+          endDateTime: DateTime.parse('2019-11-11T21:00:00.000'),
+        ),
+        Event(
+          name: 'test 4',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+          startDateTime: DateTime.parse('2019-11-28T09:00:00.000'),
+          endDateTime: DateTime.parse('2019-11-28T23:00:00.000'),
+        ),
+        Event(
+          name: 'test 5',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+          startDateTime: DateTime.parse('2019-11-11T06:00:00.000'),
+          endDateTime: DateTime.parse('2019-11-11T16:00:00.000'),
+        ),
+        Event(
+          name: 'test 6',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+          startDateTime: DateTime.parse('2019-11-18T20:00:00.000'),
+          endDateTime: DateTime.parse('2019-11-19T03:00:00.000'),
+        ),
+        Event(
+          name: 'test 7',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+          startDateTime: DateTime.parse('2019-11-19T00:00:00.000'),
+          endDateTime: DateTime.parse('2019-11-19T24:00:00.000'),
+        ),
+        Event(
+          name: 'test 8',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+          startDateTime: DateTime.parse('2019-11-19T00:00:00.000'),
+          endDateTime: DateTime.parse('2019-11-19T00:00:01.000'),
+        ),
+        Event(
+          name: 'test 9',
+          createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
+          startDateTime: DateTime.parse('2019-11-18T23:59:59.000'),
+          endDateTime: DateTime.parse('2019-11-19T00:00:00.000'),
+        ),
+      ];
+
+      // act
+      final result = eventListToEventMap(tEventList);
+
+      // assert
+      final expectedEventMap = {
+        DateTime.parse('2019-11-11T00:00:00.000'): [
+          tEventList[3],
+          tEventList[5],
+        ],
+        DateTime.parse('2019-11-28T00:00:00.000'): [
+          tEventList[4],
+        ],
+        DateTime.parse('2019-11-18T00:00:00.000'): [
+          tEventList[6],
+          tEventList[9],
+        ],
+        DateTime.parse('2019-11-19T00:00:00.000'): [
+          tEventList[6],
+          tEventList[7],
+          tEventList[8],
+        ],
+      };
+      expect(result, equals(expectedEventMap));
+    },
+  );
 }

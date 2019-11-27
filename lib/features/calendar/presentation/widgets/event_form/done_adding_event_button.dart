@@ -10,21 +10,27 @@ class DoneAddingEventButton extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  bool _validateInput(Event event) {
+    return event.name != '';
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer2<EventListNotifier, ValueNotifier<DateTime>>(
-      builder: (context, events, day, child) => TopCornerIconButton(
+    return Consumer3<EventListNotifier, ValueNotifier<DateTime>,
+        ValueNotifier<Event>>(
+      builder: (context, events, day, newEvent, child) => TopCornerIconButton(
         icon: Icons.done,
+        color: _validateInput(newEvent.value) ? null : Colors.black26,
         onPressed: () async {
-          await events.addEvent(
-            Event(
-              name: 'test',
-              createDateTime: DateTime.now(),
-              startDateTime: day.value.subtract(Duration(minutes: 10)),
-              endDateTime: day.value.add(Duration(minutes: 15)),
-            ),
-          );
-          Navigator.pop(context);
+          if (_validateInput(newEvent.value)) {
+            await events.addEvent(newEvent.value);
+            FocusScope.of(context).unfocus();
+            await Future.delayed(Duration(milliseconds: 100));
+            Navigator.pop(context);
+          } else {
+            // TODO: should notify the user
+            print('Invalid input!');
+          }
         },
       ),
     );

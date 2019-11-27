@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class TopCornerIconButton extends StatelessWidget {
   final IconData icon;
+  final Color color;
   final void Function() onPressed;
 
   const TopCornerIconButton({
     Key key,
     this.icon,
     @required this.onPressed,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -16,7 +18,7 @@ class TopCornerIconButton extends StatelessWidget {
       onTap: onPressed,
       child: Icon(
         icon,
-        color: Theme.of(context).primaryColor,
+        color: color ?? Theme.of(context).primaryColor,
         size: 25.0,
       ),
     );
