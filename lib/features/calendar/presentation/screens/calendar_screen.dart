@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/presentation/custom_widgets/custom_bottom_navigation_bar.dart';
+import '../widgets/add_event_floating_action_button.dart';
 import '../widgets/calendar.dart';
-import '../widgets/custom_bottom_navigation_bar.dart';
-import '../widgets/custom_floating_action_button.dart';
 import '../widgets/event_list.dart';
 
 class CalendarScreen extends StatelessWidget {
@@ -11,28 +11,28 @@ class CalendarScreen extends StatelessWidget {
 
   const CalendarScreen({Key key}) : super(key: key);
 
+  List<Widget> _buildNevigationBarItems() => null;
+
+  List<Widget> _buildScreenMainColumnItems() => <Widget>[
+        Calendar(),
+        Divider(height: 3.0),
+        Expanded(child: EventList()),
+      ];
+
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ValueNotifier<DateTime>>(
-          builder: (_) => ValueNotifier<DateTime>(DateTime.now()),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: _buildScreenMainColumnItems(),
         ),
-      ],
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Calendar(),
-              Divider(height: 3.0),
-              Expanded(child: EventList()),
-            ],
-          ),
-        ),
-        bottomNavigationBar: CustomBottomNavigationBar(),
-        floatingActionButton: CustomFloatingActionButton(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        children: _buildNevigationBarItems(),
+        color: Theme.of(context).primaryColor,
+      ),
+      floatingActionButton: AddEventFloatingActionButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }

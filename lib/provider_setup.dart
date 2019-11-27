@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/widgets.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ List<SingleChildCloneableWidget> providers = [
   ...externalServices,
   ...coreProviders,
   ...featureProviders,
+  ...valueProviders,
 ];
 
 List<SingleChildCloneableWidget> featureProviders = [
@@ -26,6 +28,14 @@ List<SingleChildCloneableWidget> featureProviders = [
   ...repositoryProviders,
   ...useCaseProviders,
   ...logicHolderProviders,
+];
+
+List<SingleChildCloneableWidget> valueProviders = [
+  ChangeNotifierProvider<ValueNotifier<DateTime>>(
+    builder: (_) => ValueNotifier<DateTime>(
+      DateTime.now(),
+    ),
+  ),
 ];
 
 List<SingleChildCloneableWidget> logicHolderProviders = [

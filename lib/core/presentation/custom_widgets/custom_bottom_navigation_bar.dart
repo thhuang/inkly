@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
+  final List<Widget> children;
+  final Color color;
+
   const CustomBottomNavigationBar({
     Key key,
+    this.children,
+    this.color,
   }) : super(key: key);
 
   @override
@@ -11,14 +16,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          SizedBox(
-            height: 50.0,
-          )
-        ],
+        children: children ?? <Widget>[SizedBox(height: 60.0)],
       ),
       shape: CircularNotchedRectangle(),
-      color: Theme.of(context).scaffoldBackgroundColor,
+      color: color ?? Theme.of(context).scaffoldBackgroundColor,
     );
   }
 }
