@@ -20,7 +20,8 @@ class ImageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      highlightColor: Theme.of(context).backgroundColor,
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       padding: padding,
       minWidth: 0,
       height: 0,
