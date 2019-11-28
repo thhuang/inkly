@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../domain/entities/event.dart';
 import '../../logicholders/event_notifier.dart';
+import 'date_time_field/date_time_field.dart';
 import 'title_field.dart';
 import 'top_bar/top_bar.dart';
 
@@ -40,7 +41,8 @@ class EventForm extends StatelessWidget {
         children: <Widget>[
           TopBar(),
           TitleField(),
-          SizedBox(height: 30.0),
+          SizedBox(height: 10.0),
+          DateTimeField(),
         ],
       ),
     );

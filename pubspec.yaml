@@ -25,6 +25,10 @@ dependencies:
   collection: ^1.14.11
   # Path manipulator
   path_provider: ^1.4.2
+  # Switch
+  xlive_switch: ^1.0.5
+  # Date format
+  date_format: ^1.0.8
 
 dev_dependencies:
   flutter_test:

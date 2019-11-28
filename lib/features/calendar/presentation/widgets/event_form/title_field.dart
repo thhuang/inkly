@@ -7,7 +7,7 @@ class TitleField extends StatelessWidget {
   const TitleField({Key key}) : super(key: key);
 
   TextStyle _getTitleTextStyle() => TextStyle(
-        fontSize: 30.0,
+        fontSize: 25.0,
         fontWeight: FontWeight.w700,
         letterSpacing: 1.2,
       );
