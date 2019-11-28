@@ -119,4 +119,35 @@ void main() {
       expect(stateLog, equals(expectedStates));
     },
   );
+
+  test(
+    'should set endFieldSelected and startFieldSelected both to false when allDay is updated',
+    () async {
+      // act
+      dateTimeFieldStateNotifier.endFieldSelected =
+          !dateTimeFieldStateNotifier.endFieldSelected;
+      dateTimeFieldStateNotifier.allDay = !dateTimeFieldStateNotifier.allDay;
+      dateTimeFieldStateNotifier.startFieldSelected =
+          !dateTimeFieldStateNotifier.startFieldSelected;
+      dateTimeFieldStateNotifier.allDay = !dateTimeFieldStateNotifier.allDay;
+      dateTimeFieldStateNotifier.startFieldSelected =
+          !dateTimeFieldStateNotifier.startFieldSelected;
+      dateTimeFieldStateNotifier.allDay = !dateTimeFieldStateNotifier.allDay;
+      dateTimeFieldStateNotifier.endFieldSelected =
+          !dateTimeFieldStateNotifier.endFieldSelected;
+      dateTimeFieldStateNotifier.allDay = !dateTimeFieldStateNotifier.allDay;
+      // assert
+      final expectedStates = [
+        Tuple3(false, false, true),
+        Tuple3(true, false, false),
+        Tuple3(true, true, false),
+        Tuple3(false, false, false),
+        Tuple3(false, true, false),
+        Tuple3(true, false, false),
+        Tuple3(true, false, true),
+        Tuple3(false, false, false),
+      ];
+      expect(stateLog, equals(expectedStates));
+    },
+  );
 }

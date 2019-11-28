@@ -11,6 +11,8 @@ class DateTimeFieldStateNotifier with ChangeNotifier {
 
   set allDay(bool value) {
     _allDay = value;
+    _startFieldSelected = false;
+    _endFieldSelected = false;
     notifyListeners();
   }
 
