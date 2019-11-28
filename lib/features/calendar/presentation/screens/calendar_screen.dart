@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/presentation/custom_widgets/custom_bottom_navigation_bar.dart';
 import '../widgets/add_event_floating_action_button.dart';
