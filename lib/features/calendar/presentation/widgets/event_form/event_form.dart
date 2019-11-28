@@ -5,27 +5,38 @@ import '../../../domain/entities/event.dart';
 import '../../logicholders/event_notifier.dart';
 import 'clear_adding_event_button.dart';
 import 'done_adding_event_button.dart';
+import 'title_field.dart';
 
 class EventForm extends StatelessWidget {
   const EventForm({
     Key key,
   }) : super(key: key);
 
-  TextStyle _getTitleTextStyle() => TextStyle(
-        fontSize: 30.0,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 1.2,
-      );
+  Event _buildDefaultEvent(BuildContext context) {
+    final currentDateTime = DateTime.now();
+    final selectedDate = Provider.of<ValueNotifier<DateTime>>(context).value;
+    final defaultStartDateTime = DateTime(
+      selectedDate.year,
+      selectedDate.month,
+      selectedDate.day,
+      currentDateTime.hour,
+      currentDateTime.minute,
+      currentDateTime.second,
+    );
+    final defaultEndDateTime = defaultStartDateTime.add(Duration(hours: 1));
+
+    return Event(
+      createDateTime: currentDateTime,
+      name: '',
+      startDateTime: defaultStartDateTime,
+      endDateTime: defaultEndDateTime,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<EventNotifier>(
-      builder: (_) => EventNotifier(
-        Event(
-          createDateTime: DateTime.now(),
-          name: '',
-        ),
-      ),
+      builder: (_) => EventNotifier(_buildDefaultEvent(context)),
       child: Column(
         children: <Widget>[
           Row(
@@ -38,28 +49,7 @@ class EventForm extends StatelessWidget {
               SizedBox(width: 10.0),
             ],
           ),
-          Consumer<EventNotifier>(
-            builder: (context, event, child) => TextField(
-              onChanged: (title) {
-                print(title);
-                event.updateEventFields(
-                  name: title,
-                  createDateTime: DateTime.now(),
-                );
-              },
-              autofocus: true,
-              textAlign: TextAlign.center,
-              cursorColor: Theme.of(context).primaryColor,
-              style: _getTitleTextStyle(),
-              decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(),
-                ),
-                hintText: 'Title',
-                hintStyle: _getTitleTextStyle(),
-              ),
-            ),
-          ),
+          TitleField(),
           SizedBox(height: 30.0),
         ],
       ),
