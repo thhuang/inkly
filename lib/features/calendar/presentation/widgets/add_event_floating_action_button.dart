@@ -14,7 +14,7 @@ class AddEventFloatingActionButton extends StatelessWidget {
       onPressed: () async {
         showRoundModalBottomSheet(
           context: context,
-          padding: EdgeInsets.only(top: 20.0),
+          padding: EdgeInsets.only(top: 30.0),
           child: EventForm(),
         );
       },

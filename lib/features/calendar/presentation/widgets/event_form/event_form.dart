@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../domain/entities/event.dart';
-import '../../logicholders/event_list_notifier.dart';
+import '../../logicholders/event_notifier.dart';
 import 'clear_adding_event_button.dart';
 import 'done_adding_event_button.dart';
 
@@ -19,8 +19,8 @@ class EventForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ValueNotifier<Event>>(
-      builder: (_) => ValueNotifier<Event>(
+    return ChangeNotifierProvider<EventNotifier>(
+      builder: (_) => EventNotifier(
         Event(
           createDateTime: DateTime.now(),
           name: '',
@@ -38,18 +38,26 @@ class EventForm extends StatelessWidget {
               SizedBox(width: 10.0),
             ],
           ),
-          TextField(
-            onChanged: (value) => null,
-            autofocus: true,
-            textAlign: TextAlign.center,
-            cursorColor: Theme.of(context).primaryColor,
-            style: _getTitleTextStyle(),
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(),
+          Consumer<EventNotifier>(
+            builder: (context, event, child) => TextField(
+              onChanged: (title) {
+                print(title);
+                event.updateEventFields(
+                  name: title,
+                  createDateTime: DateTime.now(),
+                );
+              },
+              autofocus: true,
+              textAlign: TextAlign.center,
+              cursorColor: Theme.of(context).primaryColor,
+              style: _getTitleTextStyle(),
+              decoration: InputDecoration(
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(),
+                ),
+                hintText: 'Title',
+                hintStyle: _getTitleTextStyle(),
               ),
-              hintText: 'Title',
-              hintStyle: _getTitleTextStyle(),
             ),
           ),
           SizedBox(height: 30.0),

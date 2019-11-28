@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'top_corner_icon_button.dart';
+import 'utils/pop_event_form.dart';
 
 class ClearAddingEventButton extends StatelessWidget {
   const ClearAddingEventButton({
@@ -12,9 +13,7 @@ class ClearAddingEventButton extends StatelessWidget {
     return TopCornerIconButton(
       icon: Icons.clear,
       onPressed: () async {
-        FocusScope.of(context).unfocus();
-        await Future.delayed(Duration(milliseconds: 100));
-        Navigator.pop(context);
+        await popEventForm(context);
       },
     );
   }
