@@ -1,13 +1,16 @@
 import 'package:inkly/features/calendar/domain/entities/event.dart';
 
 class EventListToEventMap {
-  var eventMap = Map<DateTime, List<Event>>();
+  var eventMap = Map<DateTime, Set<Event>>();
 
-  void _updateEventMap(dateTime, event) {
+  void _updateEventMap(DateTime dateTime, Event event) {
     eventMap.update(
       dateTime,
-      (dayEventList) => dayEventList + [event],
-      ifAbsent: () => [event],
+      (dayEventSet) {
+        dayEventSet.add(event);
+        return dayEventSet;
+      },
+      ifAbsent: () => {event},
     );
   }
 
@@ -35,6 +38,11 @@ class EventListToEventMap {
         }
       },
     );
-    return eventMap;
+    return eventMap.map<DateTime, List<Event>>(
+      (dateTime, eventSet) => MapEntry(
+        dateTime,
+        eventSet.toList(),
+      ),
+    );
   }
 }
