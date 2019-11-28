@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../domain/entities/event.dart';
-import '../../logicholders/event_list_notifier.dart';
-import '../../logicholders/event_notifier.dart';
-import 'top_corner_icon_button.dart';
-import 'utils/pop_event_form.dart';
+import '../../../../domain/entities/event.dart';
+import '../../../logicholders/event_list_notifier.dart';
+import '../../../logicholders/event_notifier.dart';
+import '../top_corner_icon_button.dart';
+import '../utils/pop_event_form.dart';
 
 class DoneAddingEventButton extends StatelessWidget {
   const DoneAddingEventButton({

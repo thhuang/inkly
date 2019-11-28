@@ -3,9 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../../../domain/entities/event.dart';
 import '../../logicholders/event_notifier.dart';
-import 'clear_adding_event_button.dart';
-import 'done_adding_event_button.dart';
 import 'title_field.dart';
+import 'top_bar/top_bar.dart';
 
 class EventForm extends StatelessWidget {
   const EventForm({
@@ -39,16 +38,7 @@ class EventForm extends StatelessWidget {
       builder: (_) => EventNotifier(_buildDefaultEvent(context)),
       child: Column(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(width: 10.0),
-              ClearAddingEventButton(),
-              Expanded(child: Container()),
-              DoneAddingEventButton(),
-              SizedBox(width: 10.0),
-            ],
-          ),
+          TopBar(),
           TitleField(),
           SizedBox(height: 30.0),
         ],
