@@ -12,22 +12,28 @@ class StartDateTimeField extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  void _onDateTimeChanged(
+    DateTimeFieldStateNotifier state,
+    EventNotifier event,
+    DateTime value,
+  ) {
+    var difference = event.event.endDateTime.difference(
+      event.event.startDateTime,
+    );
+    event.updateEventFields(
+      startDateTime: value,
+      endDateTime: value.add(difference),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer2<EventNotifier, DateTimeFieldStateNotifier>(
-      builder: (_, event, state, __) {
+    return Consumer2<DateTimeFieldStateNotifier, EventNotifier>(
+      builder: (_, state, event, __) {
         return DateTimeSelector(
           icon: LineIcons.caret_right,
           dateTime: event.event.startDateTime,
-          onDateTimeChanged: (DateTime value) {
-            var difference = event.event.endDateTime.difference(
-              event.event.startDateTime,
-            );
-            event.updateEventFields(
-              startDateTime: value,
-              endDateTime: value.add(difference),
-            );
-          },
+          onDateTimeChanged: (value) => _onDateTimeChanged(state, event, value),
           isSelected: state.startFieldSelected,
           onClicked: () => state.startFieldSelected = !state.startFieldSelected,
         );

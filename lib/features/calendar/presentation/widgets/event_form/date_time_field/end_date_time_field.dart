@@ -11,21 +11,27 @@ class EndDateTimeField extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  void _onDateTimeChanged(
+    DateTimeFieldStateNotifier state,
+    EventNotifier event,
+    DateTime value,
+  ) {
+    if (value.isBefore(event.event.startDateTime)) {
+      event.updateEventFields(startDateTime: value, endDateTime: value);
+    } else {
+      event.updateEventFields(endDateTime: value);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer2<EventNotifier, DateTimeFieldStateNotifier>(
-      builder: (_, event, state, __) {
+    return Consumer2<DateTimeFieldStateNotifier, EventNotifier>(
+      builder: (_, state, event, __) {
         return DateTimeSelector(
           icon: LineIcons.caret_left,
           dateTime: event.event.endDateTime,
           minimumDateTime: event.event.startDateTime,
-          onDateTimeChanged: (DateTime value) {
-            if (value.isBefore(event.event.startDateTime)) {
-              event.updateEventFields(startDateTime: value, endDateTime: value);
-            } else {
-              event.updateEventFields(endDateTime: value);
-            }
-          },
+          onDateTimeChanged: (value) => _onDateTimeChanged(state, event, value),
           isSelected: state.endFieldSelected,
           onClicked: () => state.endFieldSelected = !state.endFieldSelected,
         );
