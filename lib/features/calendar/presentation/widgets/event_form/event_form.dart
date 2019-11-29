@@ -20,8 +20,8 @@ class EventForm extends StatelessWidget {
       selectedDate.month,
       selectedDate.day,
       currentDateTime.hour,
-      currentDateTime.minute,
-      currentDateTime.second,
+      0,
+      0,
     );
     final defaultEndDateTime = defaultStartDateTime.add(Duration(hours: 1));
 
