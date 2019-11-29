@@ -47,4 +47,10 @@ class EventRepositoryImpl implements EventRepository {
       return Left(CacheFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, String>> deleteEvent(Event event) {
+    // TODO: implement deleteEvent
+    return null;
+  }
 }
