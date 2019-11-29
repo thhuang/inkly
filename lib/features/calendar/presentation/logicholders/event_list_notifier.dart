@@ -1,10 +1,10 @@
 import 'dart:core';
 
 import 'package:flutter/foundation.dart';
-import '../../../../core/utils/event_list_to_event_map.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/usecases/usecase.dart';
+import '../../../../core/utils/event_list_to_event_map.dart';
 import '../../domain/entities/event.dart';
 import '../../domain/usecases/add_event.dart';
 import '../../domain/usecases/get_event_list.dart';

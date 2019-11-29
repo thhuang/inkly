@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/calendar/presentation/logicholders/date_time_field_state_notifier.dart';
-import 'package:inkly/features/calendar/presentation/widgets/event_form/date_time_field/end_date_time_field.dart';
-import 'package:inkly/features/calendar/presentation/widgets/event_form/date_time_field/start_date_time_field.dart';
 import 'package:provider/provider.dart';
 
+import '../../../logicholders/date_time_field_state_notifier.dart';
 import 'all_day_field.dart';
+import 'end_date_time_field.dart';
+import 'start_date_time_field.dart';
 
 class DateTimeField extends StatelessWidget {
   const DateTimeField({

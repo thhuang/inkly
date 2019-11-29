@@ -1,8 +1,8 @@
+import 'package:date_format/date_format.dart' as dateFormat;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../domain/entities/event.dart';
-import 'package:date_format/date_format.dart' as dateFormat;
 
 class EventTile extends StatelessWidget {
   final Event event;

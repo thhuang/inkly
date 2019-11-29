@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:inkly/features/calendar/presentation/logicholders/date_time_field_state_notifier.dart';
-import 'package:inkly/features/calendar/presentation/logicholders/event_notifier.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../../core/presentation/custom_widgets/custom_switch.dart';
+import '../../../logicholders/date_time_field_state_notifier.dart';
+import '../../../logicholders/event_notifier.dart';
 import '../leading_icon.dart';
 import '../utils/constants.dart';
 

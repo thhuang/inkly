@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:inkly/features/calendar/domain/entities/event.dart';
+
+import '../../domain/entities/event.dart';
 
 class EventNotifier with ChangeNotifier {
   Event event;
