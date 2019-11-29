@@ -6,5 +6,6 @@
   "participants": null,
   "startDateTime": null,
   "endDateTime": null,
+  "allDay": null,
   "note": null
 }

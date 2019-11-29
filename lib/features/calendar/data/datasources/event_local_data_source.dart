@@ -12,7 +12,8 @@ const DB_CREATE_CMD = '''
     participants TEXT,
     startDateTime TEXT,
     endDateTime TEXT,
-    note, TEXT
+    allDay INTEGER, 
+    note TEXT
   )
 ''';
 

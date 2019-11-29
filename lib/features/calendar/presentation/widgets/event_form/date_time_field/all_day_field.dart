@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:inkly/features/calendar/presentation/logicholders/date_time_field_state_notifier.dart';
+import 'package:inkly/features/calendar/presentation/logicholders/event_notifier.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -13,10 +14,33 @@ class AllDayField extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  void _onAllDayChanged(
+    DateTimeFieldStateNotifier state,
+    EventNotifier event,
+    bool value,
+  ) {
+    state.allDay = value;
+    event.updateEventFields(
+      allDay: value,
+      startDateTime: event.event.startDateTime.subtract(
+        Duration(
+          hours: event.event.startDateTime.hour,
+          minutes: event.event.startDateTime.minute,
+        ),
+      ),
+      endDateTime: event.event.endDateTime.subtract(
+        Duration(
+          hours: event.event.endDateTime.hour,
+          minutes: event.event.endDateTime.minute,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<DateTimeFieldStateNotifier>(
-      builder: (_, state, __) {
+    return Consumer2<DateTimeFieldStateNotifier, EventNotifier>(
+      builder: (_, state, event, __) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -36,7 +60,7 @@ class AllDayField extends StatelessWidget {
             ),
             Expanded(child: Container()),
             CustomSwitch(
-              onChanged: (value) => state.allDay = value,
+              onChanged: (value) => _onAllDayChanged(state, event, value),
               value: state.allDay,
               activeColor: Theme.of(context).primaryColor,
             )

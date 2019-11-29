@@ -15,8 +15,8 @@ class EventList extends StatelessWidget {
         final dayEvents = events.eventMap[day] ?? [];
         return ListView.builder(
           padding: EdgeInsets.only(
-            right: 30.0,
-            left: 30.0,
+            right: 20.0,
+            left: 20.0,
             bottom: 30.0,
           ),
           itemCount: dayEvents.length,

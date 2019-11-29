@@ -52,6 +52,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvent2 = Event(
@@ -61,6 +62,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvents = [expectedEvent1, expectedEvent2];
@@ -87,6 +89,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvent2 = Event(
@@ -96,6 +99,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvents = [expectedEvent1, expectedEvent2];
@@ -122,6 +126,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvent2 = Event(
@@ -131,6 +136,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvents = [expectedEvent1, expectedEvent2];
@@ -157,6 +163,7 @@ void main() {
           participants: tParticipants1,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvent2 = Event(
@@ -166,6 +173,7 @@ void main() {
           participants: tParticipants2,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvents = [expectedEvent1, expectedEvent2];
@@ -192,6 +200,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tStartDateTime1,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvent2 = Event(
@@ -201,6 +210,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tStartDateTime2,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvents = [expectedEvent1, expectedEvent2];
@@ -227,6 +237,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEndDateTime1,
+          allDay: tEvent.allDay,
           note: tEvent.note,
         );
         final expectedEvent2 = Event(
@@ -236,6 +247,44 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEndDateTime2,
+          allDay: tEvent.allDay,
+          note: tEvent.note,
+        );
+        final expectedEvents = [expectedEvent1, expectedEvent2];
+        expect(eventLog, expectedEvents);
+      },
+    );
+
+    test(
+      'should update the allDay of the event and call notifyListeners',
+      () async {
+        // arrange
+        final tAllDay1 = true;
+        final tAllDay2 = false;
+
+        // act
+        eventNotifier.updateEventFields(allDay: tAllDay1);
+        eventNotifier.updateEventFields(allDay: tAllDay2);
+
+        // assert
+        final expectedEvent1 = Event(
+          name: tEvent.name,
+          createDateTime: tEvent.createDateTime,
+          creator: tEvent.creator,
+          participants: tEvent.participants,
+          startDateTime: tEvent.startDateTime,
+          endDateTime: tEvent.endDateTime,
+          allDay: tAllDay1,
+          note: tEvent.note,
+        );
+        final expectedEvent2 = Event(
+          name: tEvent.name,
+          createDateTime: tEvent.createDateTime,
+          creator: tEvent.creator,
+          participants: tEvent.participants,
+          startDateTime: tEvent.startDateTime,
+          endDateTime: tEvent.endDateTime,
+          allDay: tAllDay2,
           note: tEvent.note,
         );
         final expectedEvents = [expectedEvent1, expectedEvent2];
@@ -262,6 +311,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tNote1,
         );
         final expectedEvent2 = Event(
@@ -271,6 +321,7 @@ void main() {
           participants: tEvent.participants,
           startDateTime: tEvent.startDateTime,
           endDateTime: tEvent.endDateTime,
+          allDay: tEvent.allDay,
           note: tNote2,
         );
         final expectedEvents = [expectedEvent1, expectedEvent2];

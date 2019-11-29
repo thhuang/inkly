@@ -13,6 +13,7 @@ class EventNotifier with ChangeNotifier {
     List<String> participants,
     DateTime startDateTime,
     DateTime endDateTime,
+    bool allDay,
     String note,
   }) {
     if (name != null ||
@@ -21,6 +22,7 @@ class EventNotifier with ChangeNotifier {
         participants != null ||
         startDateTime != null ||
         endDateTime != null ||
+        allDay != null ||
         note != null) {
       event = Event(
         name: name ?? event.name,
@@ -29,6 +31,7 @@ class EventNotifier with ChangeNotifier {
         participants: participants ?? event.participants,
         startDateTime: startDateTime ?? event.startDateTime,
         endDateTime: endDateTime ?? event.endDateTime,
+        allDay: allDay ?? event.allDay,
         note: note ?? event.note,
       );
       notifyListeners();

@@ -6,5 +6,6 @@
   "participants": "[\"user1\",\"user2\",\"user3\"]",
   "startDateTime": "2019-11-19T10:00:00.000Z",
   "endDateTime": "2019-11-19T14:00:00.000Z",
+  "allDay": 0,
   "note": "fixture"
 }

@@ -15,6 +15,7 @@ class EventModel extends Event {
     List<String> participants,
     DateTime startDateTime,
     DateTime endDateTime,
+    bool allDay,
     String note,
   }) : super(
           name: name,
@@ -23,6 +24,7 @@ class EventModel extends Event {
           participants: participants,
           startDateTime: startDateTime,
           endDateTime: endDateTime,
+          allDay: allDay,
           note: note,
         );
 
@@ -36,6 +38,8 @@ class EventModel extends Event {
     final List<String> participants = eventMap['participants'] == null
         ? null
         : jsonDecode(eventMap['participants']).cast<String>();
+    final bool allDay =
+        eventMap['allDay'] == null ? null : eventMap['allDay'] != 0;
     return EventModel(
       id: eventMap['id'],
       name: eventMap['name'],
@@ -44,6 +48,7 @@ class EventModel extends Event {
       participants: participants,
       startDateTime: startDateTime,
       endDateTime: endDateTime,
+      allDay: allDay,
       note: eventMap['note'],
     );
   }
@@ -58,6 +63,7 @@ class EventModel extends Event {
       'startDateTime':
           startDateTime == null ? null : startDateTime.toIso8601String(),
       'endDateTime': endDateTime == null ? null : endDateTime.toIso8601String(),
+      'allDay': allDay == null ? null : allDay ? 1 : 0,
       'note': note,
     };
     if (id != null) {

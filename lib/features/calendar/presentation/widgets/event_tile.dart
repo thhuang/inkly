@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../domain/entities/event.dart';
+import 'package:date_format/date_format.dart' as dateFormat;
 
 class EventTile extends StatelessWidget {
   final Event event;
@@ -11,18 +12,40 @@ class EventTile extends StatelessWidget {
     @required this.event,
   }) : super(key: key);
 
+  Widget _getTime() {
+    if (event.allDay ?? false) {
+      return Text('All-day', textAlign: TextAlign.center,);
+    } else {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(dateFormat.formatDate(
+            event.startDateTime,
+            [dateFormat.h, ':', dateFormat.nn, ' ', dateFormat.am],
+          )),
+          Text(dateFormat.formatDate(
+            event.endDateTime,
+            [dateFormat.h, ':', dateFormat.nn, ' ', dateFormat.am],
+          )),
+        ],
+      );
+    }
+  }
+
+  Widget _buildTimePanel() {
+    return SizedBox(
+      width: 64.0,
+      child: _getTime(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.all(0),
       title: Row(
         children: <Widget>[
-          Column(
-            children: <Widget>[
-              Text('${event.startDateTime.hour}:${event.startDateTime.minute}'),
-              Text('${event.endDateTime.hour}:${event.endDateTime.minute}'),
-            ],
-          ),
+          _buildTimePanel(),
           SizedBox(width: 10.0),
           Container(
             width: 5.0,

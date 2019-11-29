@@ -8,6 +8,7 @@ class Event extends Equatable {
   final DateTime createDateTime;
   final DateTime startDateTime;
   final DateTime endDateTime;
+  final bool allDay;
   final String note;
 
   Event({
@@ -17,6 +18,7 @@ class Event extends Equatable {
     this.participants,
     this.startDateTime,
     this.endDateTime,
+    this.allDay,
     this.note,
   })  : assert(name != null),
         assert(createDateTime != null);
@@ -29,6 +31,7 @@ class Event extends Equatable {
         createDateTime,
         startDateTime,
         endDateTime,
+        allDay,
         note,
       ];
 }

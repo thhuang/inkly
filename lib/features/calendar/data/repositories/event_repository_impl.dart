@@ -23,6 +23,7 @@ class EventRepositoryImpl implements EventRepository {
           participants: event.participants,
           startDateTime: event.startDateTime,
           endDateTime: event.endDateTime,
+          allDay: event.allDay,
           note: event.note,
         ),
       );
