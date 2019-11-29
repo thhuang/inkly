@@ -34,7 +34,7 @@ class EventTile extends StatelessWidget {
 
   Widget _buildTimePanel() {
     return SizedBox(
-      width: 64.0,
+      width: 69.0,
       child: _getTime(),
     );
   }

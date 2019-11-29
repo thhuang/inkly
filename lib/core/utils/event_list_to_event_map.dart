@@ -30,10 +30,21 @@ class EventListToEventMap {
           final start = event.startDateTime;
           final end = event.endDateTime;
 
-          _updateEventMap(DateTime(start.year, start.month, start.day), event);
-          if (_acrossMultipleDays(start, end)) {
-            // TODO: should handle cases when start and end across over two days
-            _updateEventMap(DateTime(end.year, end.month, end.day), event);
+          final endAtMidnight = end.hour == 0 &&
+              end.minute == 0 &&
+              end.second == 0 &&
+              end.millisecond == 0 &&
+              end.microsecond == 0;
+          final endDate = DateTime(
+            end.year,
+            end.month,
+            endAtMidnight ? end.day - 1 : end.day,
+          );
+
+          var currDate = DateTime(start.year, start.month, start.day);
+          while (!endDate.isBefore(currDate)) {
+            _updateEventMap(currDate, event);
+            currDate = currDate.add(Duration(days: 1));
           }
         }
       },

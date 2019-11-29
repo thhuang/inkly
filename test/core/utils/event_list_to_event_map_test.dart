@@ -66,7 +66,7 @@ void main() {
           name: 'test 8',
           createDateTime: DateTime.parse('2019-11-18T12:00:00.000'),
           startDateTime: DateTime.parse('2019-11-19T00:00:00.000'),
-          endDateTime: DateTime.parse('2019-11-19T00:00:01.000'),
+          endDateTime: DateTime.parse('2019-11-21T00:00:01.000'),
         ),
         Event(
           name: 'test 9',
@@ -102,7 +102,17 @@ void main() {
           tEventList[7],
           tEventList[8],
         ],
+        DateTime.parse('2019-11-20T00:00:00.000'): [
+          tEventList[8],
+        ],
+        DateTime.parse('2019-11-21T00:00:00.000'): [
+          tEventList[8],
+        ],
       };
+      print(result[DateTime.parse('2019-11-19T00:00:00.000')][0].startDateTime);
+      print(result[DateTime.parse('2019-11-19T00:00:00.000')][0].endDateTime);
+      print(result[DateTime.parse('2019-11-19T00:00:00.000')][1].startDateTime);
+      print(result[DateTime.parse('2019-11-19T00:00:00.000')][1].endDateTime);
       expect(result, equals(expectedEventMap));
     },
   );
