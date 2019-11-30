@@ -1,4 +1,4 @@
-import 'package:inkly/features/calendar/domain/entities/event.dart';
+import '../../features/calendar/domain/entities/event.dart';
 
 class EventListToEventMap {
   var eventMap = Map<DateTime, Set<Event>>();
@@ -14,34 +14,28 @@ class EventListToEventMap {
     );
   }
 
-  bool _acrossMultipleDays(DateTime start, DateTime end) {
-    final overADay = end.difference(start).inMinutes > 1440;
-    final inTheSameDay = start.year == end.year &&
-        start.month == end.month &&
-        start.day == end.day;
-    final endAtMidnight = end.hour == 0 && end.minute == 0;
-    return overADay || (!inTheSameDay && !endAtMidnight);
-  }
-
   Map<DateTime, List<Event>> call(List<Event> eventList) {
     eventList.forEach(
       (event) {
         if (event.startDateTime != null) {
-          final start = event.startDateTime;
-          final end = event.endDateTime;
+          final endAtMidnight = event.endDateTime.hour == 0 &&
+              event.endDateTime.minute == 0 &&
+              event.endDateTime.second == 0 &&
+              event.endDateTime.millisecond == 0 &&
+              event.endDateTime.microsecond == 0;
 
-          final endAtMidnight = end.hour == 0 &&
-              end.minute == 0 &&
-              end.second == 0 &&
-              end.millisecond == 0 &&
-              end.microsecond == 0;
+          final startDate = DateTime(
+            event.startDateTime.year,
+            event.startDateTime.month,
+            event.startDateTime.day,
+          );
           final endDate = DateTime(
-            end.year,
-            end.month,
-            endAtMidnight ? end.day - 1 : end.day,
+            event.endDateTime.year,
+            event.endDateTime.month,
+            endAtMidnight ? event.endDateTime.day - 1 : event.endDateTime.day,
           );
 
-          var currDate = DateTime(start.year, start.month, start.day);
+          var currDate = startDate;
           while (!endDate.isBefore(currDate)) {
             _updateEventMap(currDate, event);
             currDate = currDate.add(Duration(days: 1));
