@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 class Event extends Equatable {
+  final String id;
   final String name;
   final String creator;
   final List<String> participants;
@@ -12,6 +13,7 @@ class Event extends Equatable {
   final String note;
 
   Event({
+    this.id,
     @required this.name,
     @required this.createDateTime,
     this.creator,
@@ -25,6 +27,7 @@ class Event extends Equatable {
 
   @override
   List<Object> get props => [
+        id, 
         name,
         creator,
         participants,

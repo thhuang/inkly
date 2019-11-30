@@ -8,12 +8,12 @@ import '../../../../fixtures/fixture_reader.dart';
 
 void main() {
   final tEventModelMin = EventModel(
-    id: 0,
+    id: '0',
     name: 'test',
     createDateTime: DateTime.parse('2019-11-18T12:00:00.000Z'),
   );
   final tEventModel = EventModel(
-    id: 0,
+    id: '0',
     name: 'test',
     createDateTime: DateTime.parse('2019-11-18T12:00:00.000Z'),
     creator: 'user1',

@@ -24,7 +24,7 @@ class SqfliteLocalStorage implements LocalStorage {
     await database.delete(
       table,
       where: 'id = ?',
-      whereArgs: [event.id],
+      whereArgs: [int.parse(event.id)],
     );
   }
 
@@ -42,7 +42,7 @@ class SqfliteLocalStorage implements LocalStorage {
       table,
       event.toMap(),
       where: 'id = ?',
-      whereArgs: [event.id],
+      whereArgs: [int.parse(event.id)],
     );
   }
 }

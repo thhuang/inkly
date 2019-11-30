@@ -5,10 +5,8 @@ import 'package:meta/meta.dart';
 import '../../domain/entities/event.dart';
 
 class EventModel extends Event {
-  final int id;
-
   EventModel({
-    this.id,
+    String id,
     @required String name,
     @required DateTime createDateTime,
     String creator,
@@ -18,6 +16,7 @@ class EventModel extends Event {
     bool allDay,
     String note,
   }) : super(
+          id: id,
           name: name,
           createDateTime: createDateTime,
           creator: creator,
@@ -29,6 +28,7 @@ class EventModel extends Event {
         );
 
   factory EventModel.fromMap(Map<String, dynamic> eventMap) {
+    final String id = eventMap['id'] == null ? null : eventMap['id'].toString();
     final DateTime startDateTime = eventMap['startDateTime'] == null
         ? null
         : DateTime.parse(eventMap['startDateTime']);
@@ -41,7 +41,7 @@ class EventModel extends Event {
     final bool allDay =
         eventMap['allDay'] == null ? null : eventMap['allDay'] != 0;
     return EventModel(
-      id: eventMap['id'],
+      id: id,
       name: eventMap['name'],
       createDateTime: DateTime.parse(eventMap['createDateTime']),
       creator: eventMap['creator'],
@@ -67,7 +67,7 @@ class EventModel extends Event {
       'note': note,
     };
     if (id != null) {
-      eventMap['id'] = id;
+      eventMap['id'] = int.parse(id);
     }
     return eventMap;
   }
