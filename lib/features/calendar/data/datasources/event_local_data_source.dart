@@ -28,7 +28,7 @@ abstract class EventLocalDataSource {
 
   Future<void> updateEvent(EventModel event);
 
-  Future<void> deleteEvent(EventModel event);
+  Future<int> deleteEvent(EventModel event);
 }
 
 class EventLocalDataSourceImpl implements EventLocalDataSource {
@@ -46,9 +46,9 @@ class EventLocalDataSourceImpl implements EventLocalDataSource {
   }
 
   @override
-  Future<void> deleteEvent(EventModel event) async {
+  Future<int> deleteEvent(EventModel event) async {
     try {
-      await localStorage.deleteEvent(EVENT_TABLE, event);
+      return await localStorage.deleteEvent(EVENT_TABLE, event);
     } catch (e) {
       throw CacheException();
     }

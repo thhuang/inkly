@@ -22,11 +22,16 @@ void main() {
   test(
     'should forward the call to the repository when success',
     () async {
+      // arrange
+      when(mockEventRepository.addEvent(any))
+          .thenAnswer((_) async => Right(tEvent.id));
+
       // act
-      await deleteEvent(Params(event: tEvent));
+      final result = await deleteEvent(DeleteEventParams(event: tEvent));
 
       // assert
       verify(mockEventRepository.deleteEvent(tEvent)).called(1);
+      expect(result, equals(tEvent.id));
     },
   );
 
@@ -39,7 +44,7 @@ void main() {
           .thenAnswer((_) async => Left(tFailure));
 
       // act
-      final result = await deleteEvent(Params(event: tEvent));
+      final result = await deleteEvent(DeleteEventParams(event: tEvent));
 
       // assert
       expect(result, Left(tFailure));

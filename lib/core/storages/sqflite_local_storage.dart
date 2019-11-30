@@ -20,12 +20,14 @@ class SqfliteLocalStorage implements LocalStorage {
   }
 
   @override
-  Future<void> deleteEvent(String table, EventModel event) async {
+  Future<int> deleteEvent(String table, EventModel event) async {
+    int id = int.parse(event.id);
     await database.delete(
       table,
       where: 'id = ?',
-      whereArgs: [int.parse(event.id)],
+      whereArgs: [id],
     );
+    return id;
   }
 
   @override

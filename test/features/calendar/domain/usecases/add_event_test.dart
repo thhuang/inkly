@@ -28,7 +28,7 @@ void main() {
           .thenAnswer((_) async => Right(tID));
 
       // act
-      final result = await addEvent(Params(event: tEvent));
+      final result = await addEvent(AddEventParams(event: tEvent));
 
       // assert
       verify(mockEventRepository.addEvent(tEvent)).called(1);
@@ -45,7 +45,7 @@ void main() {
           .thenAnswer((_) async => Left(tFailure));
 
       // act
-      final result = await addEvent(Params(event: tEvent));
+      final result = await addEvent(AddEventParams(event: tEvent));
 
       // assert
       expect(result, Left(tFailure));

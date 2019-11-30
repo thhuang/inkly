@@ -7,21 +7,21 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/event.dart';
 import '../repositories/event_repository.dart';
 
-class AddEvent extends AsyncUseCase<String, Params> {
+class AddEvent extends AsyncUseCase<String, AddEventParams> {
   final EventRepository repository;
 
   AddEvent({@required this.repository});
 
   @override
-  Future<Either<Failure, String>> call(Params params) {
+  Future<Either<Failure, String>> call(AddEventParams params) {
     return repository.addEvent(params.event);
   }
 }
 
-class Params extends Equatable {
+class AddEventParams extends Equatable {
   final Event event;
 
-  Params({this.event});
+  AddEventParams({this.event});
 
   @override
   List<Object> get props => [event];

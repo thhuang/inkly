@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:inkly/features/calendar/presentation/logicholders/event_list_notifier.dart';
+import 'package:provider/provider.dart';
 
 import '../../../domain/entities/event.dart';
 import 'time_displayer.dart';
@@ -23,6 +25,9 @@ class EventTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onLongPress: () async {
+        await Provider.of<EventListNotifier>(context).deleteEvent(_event);
+      },
       contentPadding: EdgeInsets.all(0),
       title: Row(
         children: <Widget>[

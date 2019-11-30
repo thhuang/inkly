@@ -1,7 +1,7 @@
 import '../../features/calendar/domain/entities/event.dart';
 
 class EventListToEventMap {
-  var eventMap = Map<DateTime, Set<Event>>();
+  Map<DateTime, Set<Event>> eventMap;
 
   void _updateEventMap(DateTime dateTime, Event event) {
     eventMap.update(
@@ -15,6 +15,7 @@ class EventListToEventMap {
   }
 
   Map<DateTime, List<Event>> call(List<Event> eventList) {
+    eventMap = Map<DateTime, Set<Event>>();
     eventList.forEach(
       (event) {
         if (event.startDateTime != null) {

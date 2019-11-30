@@ -13,6 +13,7 @@ import 'features/calendar/data/datasources/event_local_data_source.dart';
 import 'features/calendar/data/repositories/event_repository_impl.dart';
 import 'features/calendar/domain/repositories/event_repository.dart';
 import 'features/calendar/domain/usecases/add_event.dart';
+import 'features/calendar/domain/usecases/delete_event.dart';
 import 'features/calendar/domain/usecases/get_event_list.dart';
 import 'features/calendar/presentation/logicholders/event_list_notifier.dart';
 
@@ -39,13 +40,16 @@ List<SingleChildCloneableWidget> valueProviders = [
 ];
 
 List<SingleChildCloneableWidget> logicHolderProviders = [
-  ChangeNotifierProxyProvider3<GetEventList, AddEvent, EventListToEventMap,
-      EventListNotifier>(
-    builder: (_, getEventList, addEvent, eventListToEventMap, __) =>
-        EventListNotifier(
-            getEventList: getEventList,
-            addEvent: addEvent,
-            eventListToEventMap: eventListToEventMap),
+  ChangeNotifierProxyProvider4<GetEventList, AddEvent, DeleteEvent,
+      EventListToEventMap, EventListNotifier>(
+    builder:
+        (_, getEventList, addEvent, deleteEvent, eventListToEventMap, __) =>
+            EventListNotifier(
+      getEventList: getEventList,
+      addEvent: addEvent,
+      deleteEvent: deleteEvent,
+      eventListToEventMap: eventListToEventMap,
+    ),
   ),
 ];
 
@@ -57,6 +61,11 @@ List<SingleChildCloneableWidget> useCaseProviders = [
   ),
   ProxyProvider<EventRepository, AddEvent>(
     builder: (_, repository, __) => AddEvent(
+      repository: repository,
+    ),
+  ),
+  ProxyProvider<EventRepository, DeleteEvent>(
+    builder: (_, repository, __) => DeleteEvent(
       repository: repository,
     ),
   ),

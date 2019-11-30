@@ -131,6 +131,22 @@ void main() {
     );
 
     test(
+      'should return the id of the EventModel deleted from the LocalStorage',
+      () async {
+        // arrange
+        final tEventId = int.parse(tEventModel.id);
+        when(mockLocalStorage.deleteEvent(any, any))
+            .thenAnswer((_) async => tEventId);
+
+        // act
+        final result = await dataSource.deleteEvent(tEventModel);
+
+        // assert
+        expect(result, equals(tEventId));
+      },
+    );
+
+    test(
       'should throw CacheException when deletion failed',
       () async {
         // arrange

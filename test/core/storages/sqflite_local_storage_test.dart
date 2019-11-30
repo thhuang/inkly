@@ -93,10 +93,11 @@ void main() {
 
   group('deleteEvent', () {
     test(
-      'should delete the EventModel from the database',
+      'should return the id of the EventModel deleted from the database',
       () async {
         // act
-        sqfliteLocalStorage.deleteEvent(EVENT_TABLE, tEventModel);
+        final result =
+            await sqfliteLocalStorage.deleteEvent(EVENT_TABLE, tEventModel);
 
         // assert
         verify(mockDataBase.delete(
@@ -104,6 +105,7 @@ void main() {
           where: 'id = ?',
           whereArgs: [tEventId],
         )).called(1);
+        expect(result, equals(int.parse(tEventModel.id)));
       },
     );
   });

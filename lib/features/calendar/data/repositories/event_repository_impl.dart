@@ -49,9 +49,10 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteEvent(Event event) async {
+  Future<Either<Failure, String>> deleteEvent(Event event) async {
     try {
-      return Right(await localDataSource.deleteEvent(event));
+      final intId = await localDataSource.deleteEvent(event);
+      return Right(intId.toString());
     } on CacheException {
       return Left(CacheFailure());
     }

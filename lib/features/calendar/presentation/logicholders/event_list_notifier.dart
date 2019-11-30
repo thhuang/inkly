@@ -7,12 +7,14 @@ import '../../../../core/usecases/usecase.dart';
 import '../../../../core/utils/event_list_to_event_map.dart';
 import '../../domain/entities/event.dart';
 import '../../domain/usecases/add_event.dart';
+import '../../domain/usecases/delete_event.dart';
 import '../../domain/usecases/get_event_list.dart';
 import 'event_list_state.dart';
 
 class EventListNotifier with ChangeNotifier {
   final GetEventList _getEventList;
   final AddEvent _addEvent;
+  final DeleteEvent _deleteEvent;
   final EventListToEventMap _eventListToEventMap;
 
   List<Event> eventList;
@@ -22,12 +24,15 @@ class EventListNotifier with ChangeNotifier {
   EventListNotifier({
     @required getEventList,
     @required addEvent,
+    @required deleteEvent,
     @required eventListToEventMap,
   })  : assert(getEventList != null),
         assert(addEvent != null),
+        assert(deleteEvent != null),
         assert(eventListToEventMap != null),
         _getEventList = getEventList,
         _addEvent = addEvent,
+        _deleteEvent = deleteEvent,
         _eventListToEventMap = eventListToEventMap;
 
   Future<void> getEventList() async {
@@ -47,7 +52,7 @@ class EventListNotifier with ChangeNotifier {
   Future<String> addEvent(Event event) async {
     _loadingStateTransition();
     String eventId;
-    final eitherFailureOrId = await _addEvent(Params(event: event));
+    final eitherFailureOrId = await _addEvent(AddEventParams(event: event));
     await eitherFailureOrId.fold<Future<void>>(
       (failure) async => _errorStateTransition(_mapFailureToMessage(failure)),
       (id) async {
@@ -56,6 +61,19 @@ class EventListNotifier with ChangeNotifier {
       },
     );
     return eventId;
+  }
+
+  Future<String> deleteEvent(Event event) async {
+    _loadingStateTransition();
+    final eitherFailureOrId =
+        await _deleteEvent(DeleteEventParams(event: event));
+    await eitherFailureOrId.fold<Future<void>>(
+      (failure) async => _errorStateTransition(_mapFailureToMessage(failure)),
+      (_) async {
+        await getEventList();
+      },
+    );
+    return event.id;
   }
 
   void _loadingStateTransition() {
