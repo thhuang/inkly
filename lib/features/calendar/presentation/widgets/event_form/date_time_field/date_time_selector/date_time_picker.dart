@@ -33,6 +33,7 @@ class DateTimePicker extends StatelessWidget {
           onDateTimeChanged: onDateTimeChanged,
           minimumDate: minimumDate,
           minuteInterval: MINUTE_INTERVAL,
+          use24hFormat: USE_24_BASED_HOUR,
           mode: Provider.of<DateTimeFieldStateNotifier>(context).allDay
               ? CupertinoDatePickerMode.date
               : CupertinoDatePickerMode.dateAndTime,

@@ -39,13 +39,12 @@ class DateTimeDisplayer extends StatelessWidget {
   }
 
   String _generateTimeText(DateTime dateTime) {
-    return dateFormat.formatDate(dateTime, [
-      dateFormat.h,
-      ':',
-      dateFormat.nn,
-      ' ',
-      dateFormat.am,
-    ]);
+    return dateFormat.formatDate(
+      dateTime,
+      USE_24_BASED_HOUR
+          ? [dateFormat.H, ':', dateFormat.nn]
+          : [dateFormat.h, ':', dateFormat.nn, ' ', dateFormat.am],
+    );
   }
 
   @override
