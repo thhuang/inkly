@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/utils/event_comparator.dart';
 import '../logicholders/event_list_notifier.dart';
-import 'event_tile.dart';
+import 'event_tile/event_tile.dart';
 
 class EventList extends StatelessWidget {
   EventList({Key key}) : super(key: key);
