@@ -88,12 +88,41 @@ void main() {
       },
     );
 
-    test('should retruen CacheFailure when getting CacheException', () async {
+    test('should return CacheFailure when getting CacheException', () async {
       // arrange
       when(mockEventLocalDataSource.getEventList()).thenThrow(CacheException());
 
       // act
       final result = await repository.getEventList();
+
+      // assert
+      expect(result, equals(Left(CacheFailure())));
+    });
+  });
+
+  group('deleteEvent', () {
+    final tEvent = EventModel.fromMap(
+      jsonDecode(fixture('event.json')),
+    );
+
+    test(
+      'should delete the event from local data source',
+      () async {
+        // act
+        repository.deleteEvent(tEvent);
+
+        // assert
+        verify(mockEventLocalDataSource.deleteEvent(tEvent)).called(1);
+      },
+    );
+
+    test('should retruen CacheFailure when getting CacheException', () async {
+      // arrange
+      when(mockEventLocalDataSource.deleteEvent(any))
+          .thenThrow(CacheException());
+
+      // act
+      final result = await repository.deleteEvent(tEvent);
 
       // assert
       expect(result, equals(Left(CacheFailure())));

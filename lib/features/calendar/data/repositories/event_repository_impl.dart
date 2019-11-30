@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
-import 'package:inkly/features/calendar/data/models/event_model.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/event.dart';
 import '../../domain/repositories/event_repository.dart';
 import '../datasources/event_local_data_source.dart';
+import '../models/event_model.dart';
 
 class EventRepositoryImpl implements EventRepository {
   final EventLocalDataSource localDataSource;
@@ -49,8 +49,11 @@ class EventRepositoryImpl implements EventRepository {
   }
 
   @override
-  Future<Either<Failure, String>> deleteEvent(Event event) {
-    // TODO: implement deleteEvent
-    return null;
+  Future<Either<Failure, void>> deleteEvent(Event event) async {
+    try {
+      return Right(await localDataSource.deleteEvent(event));
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 }

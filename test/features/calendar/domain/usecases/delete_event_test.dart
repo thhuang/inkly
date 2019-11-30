@@ -22,17 +22,11 @@ void main() {
   test(
     'should forward the call to the repository when success',
     () async {
-      // arrange
-      final tID = 'index';
-      when(mockEventRepository.deleteEvent(any))
-          .thenAnswer((_) async => Right(tID));
-
       // act
-      final result = await deleteEvent(Params(event: tEvent));
+      await deleteEvent(Params(event: tEvent));
 
       // assert
       verify(mockEventRepository.deleteEvent(tEvent)).called(1);
-      expect(result, Right(tID));
     },
   );
 

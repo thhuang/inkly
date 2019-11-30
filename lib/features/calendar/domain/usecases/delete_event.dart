@@ -7,13 +7,13 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/event.dart';
 import '../repositories/event_repository.dart';
 
-class DeleteEvent extends AsyncUseCase<String, Params> {
+class DeleteEvent extends AsyncUseCase<void, Params> {
   final EventRepository repository;
 
   DeleteEvent({@required this.repository});
 
   @override
-  Future<Either<Failure, String>> call(Params params) {
+  Future<Either<Failure, void>> call(Params params) {
     return repository.deleteEvent(params.event);
   }
 }
