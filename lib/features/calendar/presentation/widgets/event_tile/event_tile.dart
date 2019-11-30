@@ -29,24 +29,30 @@ class EventTile extends StatelessWidget {
         await Provider.of<EventListNotifier>(context).deleteEvent(_event);
       },
       contentPadding: EdgeInsets.all(0),
-      title: Row(
-        children: <Widget>[
-          TimeDisplayer(
-            event: _event,
-            dayStartTime: _dayStartTime,
-            dayEndTime: _dayEndTime,
-          ),
-          SizedBox(width: 10.0),
-          Container(
-            width: 5.0,
-            height: 45.0,
-            color: Colors.blue,
-          ),
-          SizedBox(width: 10.0),
-          Text(_event.name),
-        ],
+      title: Padding(
+        padding: EdgeInsets.only(left: 20.0),
+        child: Row(
+          children: <Widget>[
+            TimeDisplayer(
+              event: _event,
+              dayStartTime: _dayStartTime,
+              dayEndTime: _dayEndTime,
+            ),
+            SizedBox(width: 10.0),
+            Container(
+              width: 5.0,
+              height: 45.0,
+              color: Colors.blue,
+            ),
+            SizedBox(width: 10.0),
+            Text(_event.name),
+          ],
+        ),
       ),
-      trailing: Icon(FontAwesomeIcons.user),
+      trailing: Padding(
+        padding: EdgeInsets.only(right: 20.0),
+        child: Icon(FontAwesomeIcons.user),
+      ),
     );
   }
 }

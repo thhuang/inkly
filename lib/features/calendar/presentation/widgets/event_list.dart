@@ -16,11 +16,7 @@ class EventList extends StatelessWidget {
         final dayEvents = events.eventMap[day] ?? [];
         dayEvents.sort(EventComparator());
         return ListView.builder(
-          padding: EdgeInsets.only(
-            right: 20.0,
-            left: 20.0,
-            bottom: 30.0,
-          ),
+          padding: EdgeInsets.only(bottom: 30.0),
           itemCount: dayEvents.length,
           itemBuilder: (context, index) => EventTile(
             dayStartTime: day,
